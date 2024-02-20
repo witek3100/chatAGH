@@ -8,7 +8,7 @@
     "environment": "gcp-starter"
   },
   "sources_loader": {
-    "chunk_size": 1000,
-    "chunk_overlap": 0
+    "chunk_size": 1200,
+    "chunk_overlap": 300
   }
 }

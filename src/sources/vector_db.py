@@ -28,7 +28,7 @@ def init_index():
         if delete_response:
             print(f'Error while deleting index: {delete_response}')
         else:
-            print(f'Index {index_name} deleted')
+            print(f'Pinecone index {index_name} deleted')
 
     pc.create_index(
         name=index_name,
@@ -39,8 +39,13 @@ def init_index():
     PineconeStore.from_documents(docs, embeddings, index_name=index_name)
 
 def search_docs(query, num_docs=4):
+    print(f'Searching for {num_docs} docs for query: {query}')
+
     docsearch = PineconeStore.from_existing_index(index_name, embeddings)
     docs = docsearch.similarity_search(query, k=num_docs)
+
+    for doc in docs:
+        print(f"Doc found: \n {doc.page_content} \n\n")
 
     return docs
 

@@ -14,9 +14,14 @@ def load_sources():
     documents = []
 
     # Load AGH statutes pdf documents
+    print('Loading AGH statutes')
     for statute_link in sources['statutes']:
-        statute_docs = load_pdf(statute_link)
-        documents.extend(statute_docs)
+        try:
+            statute_docs = load_pdf(statute_link)
+            documents.extend(statute_docs)
+        except Exception as e:
+            print(f"Error while loading doc: {statute_link}, error message: {e}")
+            pass
 
     return documents
 
