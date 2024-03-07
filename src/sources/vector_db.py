@@ -2,12 +2,17 @@ import pinecone
 import json
 import os
 
-from langchain_openai import OpenAIEmbeddings
+import bs4
+from langchain import hub
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import Pinecone as PineconeStore
+from langchain_core.runnables import RunnableParallel
 
-from sources_loader import load_sources
+from src.sources.sources_loader import load_sources
 
-with open("config.json") as config_file:
+with open("../config.json") as config_file:
     config = json.load(config_file)
 
 os.environ['PINECONE_API_KEY'] = config['pinecone']['api_key']
@@ -18,6 +23,9 @@ index_name = config['pinecone']['index_name']
 
 pc = pinecone.Pinecone(environment=pinecone_env)
 embeddings = OpenAIEmbeddings()
+
+docsearch = PineconeStore.from_existing_index(index_name, embeddings)
+retriever = docsearch.as_retriever()
 
 def init_index():
 
@@ -40,8 +48,6 @@ def init_index():
 
 def search_docs(query, num_docs=4):
     print(f'Searching for {num_docs} docs for query: {query}')
-
-    docsearch = PineconeStore.from_existing_index(index_name, embeddings)
     docs = docsearch.similarity_search(query, k=num_docs)
 
     for doc in docs:
