@@ -4,12 +4,7 @@ import json
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-with open(os.path.join("../", "sources.json")) as sources_file:
-    sources = json.load(sources_file)
-
-with open(os.path.join("../", "config.json")) as config_file:
-    config = json.load(config_file)
-
+from src.utils import config, sources
 
 def load_sources():
     documents = []

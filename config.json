@@ -1,6 +1,6 @@
 {
   "openai": {
-    "api_key": "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"
+    "api_key": "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"
   },
   "pinecone": {
     "api_key": "c079a1cd-1698-41b2-b457-74aa836db1aa",
@@ -10,5 +10,6 @@
   "sources_loader": {
     "chunk_size": 1200,
     "chunk_overlap": 300
-  }
+  },
+  "web-app-templates": "templates"
 }

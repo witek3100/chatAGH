@@ -1,19 +1,11 @@
 import pinecone
-import json
 import os
 
-import bs4
-from langchain import hub
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Pinecone as PineconeStore
-from langchain_core.runnables import RunnableParallel
 
 from src.sources.sources_loader import load_sources
-
-with open("../config.json") as config_file:
-    config = json.load(config_file)
+from src.utils import config
 
 os.environ['PINECONE_API_KEY'] = config['pinecone']['api_key']
 os.environ['OPENAI_API_KEY'] = config['openai']['api_key']
