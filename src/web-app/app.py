@@ -11,21 +11,16 @@ def home():
 
 @app.route('/chat/<chat_id>', methods=['GET', 'POST'])
 def chat(chat_id):
-  print(chat_id)
-
   chat = Chat(chat_id=chat_id)
 
   if request.method == 'GET':
     pass
 
   if request.method == 'POST':
-    print('asking')
-    user_input = request.form.get("user_input")
+    user_input = request.form.get('message')
     print(user_input)
     chat.ask(user_input)
-    print(chat.history)
-
-    bot_message = "This is a placeholder bot response. You can replace this with functionalities to process user input and generate responses."
+    print(f'post with question: {user_input}')
 
   return render_template('chat_tab.html', chat=chat)
 

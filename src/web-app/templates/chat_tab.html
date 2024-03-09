@@ -1,72 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Chatbot App (Dark Theme)</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      background-color: #222;
-      color: #ddd;
-    }
-    .chat-history {
-      flex: 1;
-      overflow-y: scroll;
-      padding: 1rem;
-    }
-    .chat-input {
-      display: flex;
-      align-items: center;
-      padding: 1rem;
-      background-color: #333;
-    }
-    #chat-text {
-      flex: 1;
-      border: none;
-      outline: none;
-      padding: 0.5rem;
-      color: #eee;
-      height: 6%;
-      width: 20%;
-    }
-    #send-button {
-      background-color: #007bff;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      cursor: pointer;
-    }
-    .user-message {
-      background-color: #444;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      margin-bottom: 0.5rem;
-    }
-    .bot-message {
-      background-color: #39b54a;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      margin-bottom: 0.5rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #555; /* Set your desired background color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            background-color: rgba(0, 0, 0, 0.1);
+            margin-top: 200px;
+            width: 50%;
+            border-radius: 10px;
+            overflow-y: auto;
+            height: calc(100vh - 200px);
+        }
+
+        .chat-messages {
+            padding: 10px;
+        }
+
+        .chat-input-container {
+            position: fixed;
+            bottom: 0;
+            width: 60%;
+            background-color: #333;
+            padding: 20px;
+            justify-content: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        #chat-form {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+        }
+
+        .chat-input {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .button-box {
+            width: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .send-button {
+            width: 200px;
+            height: 80px;
+            border: none;
+            border-radius: 30px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 50px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <div class="chat-history" id="chat-history">
-    {% for message in chat_history %}
-      {% if message.user %}
-        <p class="user-message">You: {{ message.user }}</p>
-      {% else %}
-        <p class="bot-message">Chatbot: {{ message.bot }}</p>
-      {% endif %}
-    {% endfor %}
-  </div>
-  <form method="POST" action="/chat/{{ chat.id }}">  <label for="user_input">Enter your message:</label>
-    <input type="text" id="user_input" name="user_input" placeholder="Type your message here">
-    <button type="submit">Submit</button>
-  </form>
+    <div class="logo">
+        Chat<b style="color: green">A</b><b style="color: black">G</b><b style="color: red">H</b>
+    </div>
+    <div class="main">
+
+        <div class="chat-container">
+            <div class="chat-messages">
+                <div class="message">
+                    dsfgfdgdsfgdfg
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <form id="chat-form" action="/chat/{{ chat.id }}" method="post">
+                <input type="text" name="message" class="chat-input" placeholder="O co chcesz zapytać?" onkeypress="return handleKeyPress(event)">
+                <div class="button-box">
+                    <button type="submit" class="send-button">Zapytaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("chat-form").submit();
+            }
+        }
+    </script>
 </body>
 </html>
-
