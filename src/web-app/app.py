@@ -21,9 +21,11 @@ def chat(chat_id):
     pass
 
   if request.method == 'POST':
+    print(request.form.keys())
     user_input = request.form.get('message')
     answer = chat.ask(user_input)
     return jsonify({
+      'query': user_input,
       'answer': answer
     })
 

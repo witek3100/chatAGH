@@ -13,7 +13,7 @@
             padding: 0;
         }
 
-        .chat-container {
+        #chat-container {
             background-color: rgba(0, 0, 0, 0.1);
             margin-top: 200px;
             width: 50%;
@@ -29,7 +29,7 @@
         .chat-input-container {
             position: fixed;
             bottom: 0;
-            width: 60%;
+            width: 49%;
             background-color: #333;
             padding: 20px;
             justify-content: center;
@@ -98,7 +98,7 @@
     </div>
     <div class="main">
 
-        <div class="chat-container">
+        <div id="chat-container">
             {% for message in chat.history %}
             <div class="message">
                 <img src="" class="icon">
@@ -137,6 +137,7 @@
           event.preventDefault();
 
           const formData = new FormData(chatForm);
+          updateChat(inputBox.value)
 
           sendButton.disabled = true;
           sendButton.style.backgroundColor = "#555"
@@ -148,24 +149,24 @@
             processData: false,
             contentType: false,
             success: function(chat) {
-                updateChat(chat)
+                updateChat(chat["answer"])
                 sendButton.disabled = false;
                 sendButton.style.backgroundColor = "#4CAF50";
             },
             error: function(jqXHR, textStatus, errorMessage) {
               console.error("Error submitting form:", errorMessage);
-                alert(errorMessage)
-                sendButton.disabled = false;
-                sendButton.style.backgroundColor = "#4CAF50";
+              sendButton.disabled = false;
+              sendButton.style.backgroundColor = "#4CAF50";
             }
           });
         }
 
-        function updateChat(chat) {
-            const newMessage = document.createElement("div")
-            newMessage.classList.add("message")
-            newMessage.textContent = chat['answer']
-            chatBox.appendChild(newMessage)
+        function updateChat(message, agent) {
+            const msg = document.createElement("div")
+            msg.classList.add("message")
+            msg.textContent = message
+            chatBox.appendChild(msg)
+            inputBox.value = ""
         }
 
 

@@ -36,8 +36,9 @@ class Chat:
         return rag_chain.invoke(query)
 
     def ask(self, query):
-        self.history.append(query)
         answer = Chat.answer_with_context(query)['answer']
+
+        self.history.append(query)
         self.history.append(answer)
         self.save()
 
