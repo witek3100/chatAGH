@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Chatbot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #555; /* Set your desired background color */
+            background-color: #555;
             margin: 0;
             padding: 0;
         }
@@ -83,6 +84,12 @@
             font-size: 50px;
             color: white;
         }
+
+        .message {
+            color: white;
+            font-size: 35px;
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
@@ -92,29 +99,77 @@
     <div class="main">
 
         <div class="chat-container">
-            <div class="chat-messages">
-                <div class="message">
-                    dsfgfdgdsfgdfg
+            {% for message in chat.history %}
+            <div class="message">
+                <img src="" class="icon">
+                <div class="text">
+                    {{ message }}
                 </div>
             </div>
+            {% endfor %}
         </div>
 
         <div class="chat-input-container">
-            <form id="chat-form" action="/chat/{{ chat.id }}" method="post">
-                <input type="text" name="message" class="chat-input" placeholder="O co chcesz zapytać?" onkeypress="return handleKeyPress(event)">
+            <form id="chat-form">
+                <input id="question-input" type="text" name="message" class="chat-input" placeholder="O co chcesz zapytać?">
                 <div class="button-box">
-                    <button type="submit" class="send-button">Zapytaj</button>
+                    <button id="send-button" class="send-button">Zapytaj</button>
                 </div>
             </form>
         </div>
     </div>
+
     <script>
-        function handleKeyPress(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                document.getElementById("chat-form").submit();
+
+        const inputBox = document.getElementById("question-input");
+        const sendButton = document.getElementById("send-button");
+        const chatForm = document.getElementById("chat-form");
+        const chatBox = document.getElementById("chat-container")
+
+        inputBox.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                ask()
             }
+        });
+        sendButton.addEventListener("click", ask);
+
+        function ask(event) {
+          event.preventDefault();
+
+          const formData = new FormData(chatForm);
+
+          sendButton.disabled = true;
+          sendButton.style.backgroundColor = "#555"
+
+          $.ajax({
+            url: "123123",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(chat) {
+                updateChat(chat)
+                sendButton.disabled = false;
+                sendButton.style.backgroundColor = "#4CAF50";
+            },
+            error: function(jqXHR, textStatus, errorMessage) {
+              console.error("Error submitting form:", errorMessage);
+                alert(errorMessage)
+                sendButton.disabled = false;
+                sendButton.style.backgroundColor = "#4CAF50";
+            }
+          });
         }
+
+        function updateChat(chat) {
+            const newMessage = document.createElement("div")
+            newMessage.classList.add("message")
+            newMessage.textContent = chat['answer']
+            chatBox.appendChild(newMessage)
+        }
+
+
     </script>
+
 </body>
 </html>

@@ -1,9 +1,13 @@
 from src.chatbot.chat import Chat
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, jsonify
 
 app = Flask(__name__)
 
+
+@app.route('/')
+def redirect_home():
+  return redirect('/home')
 
 @app.route('/home', methods=['GET'])
 def home():
@@ -18,12 +22,12 @@ def chat(chat_id):
 
   if request.method == 'POST':
     user_input = request.form.get('message')
-    print(user_input)
-    chat.ask(user_input)
-    print(f'post with question: {user_input}')
+    answer = chat.ask(user_input)
+    return jsonify({
+      'answer': answer
+    })
 
   return render_template('chat_tab.html', chat=chat)
 
 if __name__ == '__main__':
-  chat = None
   app.run(debug=True)

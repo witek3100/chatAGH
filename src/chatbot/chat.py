@@ -1,4 +1,3 @@
-import bs4
 from langchain import hub
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -38,9 +37,11 @@ class Chat:
 
     def ask(self, query):
         self.history.append(query)
-        msg = Chat.answer_with_context(query)['answer']
-        self.history.append(msg)
+        answer = Chat.answer_with_context(query)['answer']
+        self.history.append(answer)
         self.save()
+
+        return answer
 
     def save(self):
         pass
