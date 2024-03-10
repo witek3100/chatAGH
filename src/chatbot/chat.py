@@ -2,7 +2,7 @@ from langchain import hub
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
-from langchain_core.runnables import RunnableParallel
+from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from src.sources.vector_db import retriever
@@ -54,7 +54,7 @@ class Chat:
 
     def ask(self, question):
         answer = self.chain.invoke({"question": question, "chat_history": self.history})
-        self.history.append(question)
+        self.history.append(HumanMessage(content=question))
         self.history.append(answer)
         self.save()
 
