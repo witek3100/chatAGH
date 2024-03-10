@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Chatbot</title>
+    <script src="js/ajax_chat_ask.js"></script>
+    <link rel="stylesheet" type="text/css" href="templates/css/chat_tab.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -98,6 +101,7 @@
             margin: 20px;
         }
     </style>
+
 </head>
 <body>
 
@@ -128,7 +132,6 @@
     </div>
 
     <script>
-
         const inputBox = document.getElementById("question-input");
         const sendButton = document.getElementById("send-button");
         const chatForm = document.getElementById("chat-form");
@@ -176,7 +179,6 @@
             chatBox.appendChild(msg)
             inputBox.value = ""
         }
-
     </script>
 
 </body>
