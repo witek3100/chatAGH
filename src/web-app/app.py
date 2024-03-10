@@ -15,7 +15,7 @@ def home():
 
 @app.route('/chat/<chat_id>', methods=['GET', 'POST'])
 def chat(chat_id):
-  # chat = Chat(chat_id=chat_id)
+  chat = Chat(chat_id=chat_id)
 
   if request.method == 'GET':
     pass
@@ -32,5 +32,4 @@ def chat(chat_id):
   return render_template('chat_tab.html', chat=chat)
 
 if __name__ == '__main__':
-  chat = Chat()
   app.run(debug=True)

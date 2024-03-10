@@ -1,4 +1,5 @@
-from langchain import hub
+import datetime
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
@@ -6,12 +7,18 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from src.sources.vector_db import retriever
+from src.utils import chats_collection, messages_collection
 
 
 class Chat:
     def __init__(self, chat_id=None):
-        self.history = []
-        self.id = chat_id
+        if chat_id:
+            self.id = chat_id
+            self.load()
+        else:
+            self.id = 0
+            self.load()
+
         self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 
         with open('src/chatbot/prompts/contextualize_prompt.txt', 'r') as file:
@@ -43,6 +50,8 @@ class Chat:
             | self.llm
         )
 
+        self.save()
+
     def format_docs(self, docs):
         return "\n\n".join(doc.page_content for doc in docs)
 
@@ -53,15 +62,44 @@ class Chat:
             return input["question"]
 
     def ask(self, question):
+
+        messages_collection.insert_one({
+            'content': question,
+            'chat_id': self.id,
+            'timestamp': datetime.datetime.now(),
+            'agent': 'human'
+        })
+
         answer = self.chain.invoke({"question": question, "chat_history": self.history})
-        self.history.append(HumanMessage(content=question))
-        self.history.append(answer)
-        self.save()
+        messages_collection.insert_one({
+            'content': answer.content,
+            'chat_id': self.id,
+            'timestamp': datetime.datetime.now(),
+            'agent': 'bot'
+        })
 
         return answer
 
     def save(self):
-        pass
+        chat = {
+            'id': self.id,
+            'llm': self.llm.model_name,
+        }
+        update = {"$setOnInsert": chat}
+        chats_collection.update_one({"id": self.id}, update, True)
+
+    def load(self):
+        history = []
+        query = {"chat_id": self.id}
+        sort = {"timestamp": 1}
+        for message in messages_collection.find(query).sort(sort):
+            if message["agent"] == "human":
+                agent_class = HumanMessage
+            if message["agent"] == "bot":
+                agent_class = AIMessage
+            history.append(agent_class(content=message["content"]))
+
+        self.history = history
 
 
 if __name__ == "__main__":

@@ -11,5 +11,9 @@
     "chunk_size": 1200,
     "chunk_overlap": 300
   },
-  "web-app-templates": "templates"
+  "web-app-templates": "templates",
+  "mongo": {
+    "uri": "mongodb://127.0.0.1:27017",
+    "db": "chatagh"
+  }
 }
