@@ -1,8 +1,9 @@
 
+import datetime
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import AIMessage, HumanMessage, AnyMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from src.sources.vector_db import retriever
@@ -13,11 +14,10 @@ from src.chatbot.message import Message
 class Chat:
     def __init__(self, chat_id=None):
         self.history = []
+        self.created = datetime.datetime.now()
+
         if chat_id:
             self.id = chat_id
-            self.load_history()
-        else:
-            self.id = 0
             self.load_history()
 
         self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
@@ -51,7 +51,8 @@ class Chat:
             | self.llm
         )
 
-        self.save()
+        if not chat_id:
+            self.save()
 
     def format_docs(self, docs):
         return "\n\n".join(doc.page_content for doc in docs)
@@ -63,7 +64,6 @@ class Chat:
             return input["question"]
 
     def ask(self, question):
-
         msg_question = Message(
             chat_id=self.id,
             content=question,
@@ -84,11 +84,11 @@ class Chat:
 
     def save(self):
         chat = {
-            'id': self.id,
             'llm': self.llm.model_name,
+            'timestamp': self.created
         }
-        update = {"$setOnInsert": chat}
-        chats_collection.update_one({"id": self.id}, update, True)
+        result = chats_collection.insert_one(chat)
+        self.id = result.inserted_id
 
     def load_history(self):
         query = {"chat_id": self.id}

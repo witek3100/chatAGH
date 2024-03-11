@@ -13,6 +13,11 @@ def redirect_home():
 def home():
   return render_template('home_tab.html')
 
+@app.route('/new_chat')
+def create_new_chat():
+  chat = Chat()
+  return redirect(f'/chat/{chat.id}')
+
 @app.route('/chat/<chat_id>', methods=['GET', 'POST'])
 def chat(chat_id):
   chat = Chat(chat_id=chat_id)

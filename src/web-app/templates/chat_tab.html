@@ -138,6 +138,7 @@
         const sendButton = document.getElementById("send-button");
         const chatForm = document.getElementById("chat-form");
         const chatBox = document.getElementById("chat-container")
+        const chatId = '{{ chat.id }}'
 
         inputBox.addEventListener("keyup", (event) => {
             if (event.key === "Enter") {
@@ -156,7 +157,7 @@
           sendButton.style.backgroundColor = "#555"
 
           $.ajax({
-            url: "123123",
+            url: chatId,
             type: "POST",
             data: formData,
             processData: false,
