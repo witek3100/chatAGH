@@ -1,52 +1,109 @@
-from langchain import hub
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
-from langchain_core.runnables import RunnableParallel
+from langchain_core.messages import AIMessage, HumanMessage, AnyMessage
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from src.sources.vector_db import retriever
+from src.utils import chats_collection, messages_collection
+from src.chatbot.message import Message
 
 
 class Chat:
     def __init__(self, chat_id=None):
         self.history = []
-        self.id = chat_id
         if chat_id:
-            pass
+            self.id = chat_id
+            self.load_history()
+        else:
+            self.id = 0
+            self.load_history()
 
-    @staticmethod
-    def answer_with_context(query, skill=None):
-        prompt = hub.pull("rlm/rag-prompt")
-        llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 
-        def format_docs(docs):
-            return "\n\n".join(doc.page_content for doc in docs)
+        with open('src/chatbot/prompts/contextualize_prompt.txt', 'r') as file:
+            prompt_text = file.read()
+            contextualize_prompt = ChatPromptTemplate.from_messages(
+                [
+                    ("system", prompt_text),
+                    MessagesPlaceholder(variable_name="chat_history"),
+                    ("human", "{question}")
+                ]
+            )
+            self.contextualize_chain = contextualize_prompt | self.llm | StrOutputParser()
 
-        rag_chain = (
-                RunnablePassthrough.assign(context=(lambda x: format_docs(x["context"])))
-                | prompt
-                | llm
-                | StrOutputParser()
+        with open('src/chatbot/prompts/qa_prompt.txt', 'r') as file:
+            prompt_text = file.read()
+            self.qa_prompt = ChatPromptTemplate.from_messages(
+                [
+                    ("system", prompt_text),
+                    MessagesPlaceholder(variable_name="chat_history"),
+                    ("human", "{question}")
+                ]
+            )
+
+        self.chain = (
+            RunnablePassthrough.assign(
+                context=self.contextualized_question | retriever | self.format_docs
+            )
+            | self.qa_prompt
+            | self.llm
         )
 
-        rag_chain = RunnableParallel(
-            {"context": retriever, "question": RunnablePassthrough()}
-        ).assign(answer=rag_chain)
-
-        return rag_chain.invoke(query)
-
-    def ask(self, query):
-        answer = Chat.answer_with_context(query)['answer']
-
-        self.history.append(query)
-        self.history.append(answer)
         self.save()
+
+    def format_docs(self, docs):
+        return "\n\n".join(doc.page_content for doc in docs)
+
+    def contextualized_question(self, input: dict):
+        if input.get("chat_history"):
+            return self.contextualize_chain
+        else:
+            return input["question"]
+
+    def ask(self, question):
+
+        msg_question = Message(
+            chat_id=self.id,
+            content=question,
+            agent='human',
+        )
+
+        history = [msg.message.content for msg in self.history]
+        answer = self.chain.invoke({"question": question, "chat_history": history})
+        msg_answer = Message(
+            chat_id=self.id,
+            content=answer.content,
+            agent='bot'
+        )
+
+        self.history.extend([msg_question, msg_answer])
 
         return answer
 
     def save(self):
-        pass
+        chat = {
+            'id': self.id,
+            'llm': self.llm.model_name,
+        }
+        update = {"$setOnInsert": chat}
+        chats_collection.update_one({"id": self.id}, update, True)
+
+    def load_history(self):
+        query = {"chat_id": self.id}
+        sort = {"timestamp": 1}
+
+        for message in messages_collection.find(query).sort(sort):
+            msg = Message(
+                    id=message['_id'],
+                    content=message['content'],
+                    agent=message['agent'],
+                    timestamp=message['timestamp']
+                )
+            self.history.append(msg)
 
 
 if __name__ == "__main__":
-    print(Chat.answer_with_context("Zmiana kierunku studiów"))
+    chat = Chat()
+    print(chat.ask("Zmiana kierunku studiów"))

@@ -23,9 +23,10 @@ def chat(chat_id):
   if request.method == 'POST':
     user_input = request.form.get('message')
     answer = chat.ask(user_input)
+
     return jsonify({
       'query': user_input,
-      'answer': answer
+      'answer': answer.content
     })
 
   return render_template('chat_tab.html', chat=chat)

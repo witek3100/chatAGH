@@ -19,6 +19,8 @@
         #chat-container {
             background-color: rgba(0, 0, 0, 0.1);
             margin-top: 150px;
+            margin-bottom: 150px;
+            padding-bottom: 80px;
             width: 50%;
             border-radius: 10px;
             overflow-y: auto;
@@ -105,9 +107,9 @@
 </head>
 <body>
 
-    <div class="upperbar">
-        Chat<b style="color: green">A</b><b style="color: black">G</b><b style="color: red">H</b>
-    </div>
+<!--    <div class="upperbar">-->
+<!--        Chat<b style="color: green">A</b><b style="color: black">G</b><b style="color: red">H</b>-->
+<!--    </div>-->
 
     <div class="main">
         <div id="chat-container">
@@ -115,7 +117,7 @@
             <div class="message">
                 <img src="" class="icon">
                 <div class="text">
-                    {{ message }}
+                    {{ message.message.content }}
                 </div>
             </div>
             {% endfor %}
