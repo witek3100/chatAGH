@@ -1,5 +1,3 @@
-import datetime
-import langchain_core.messages
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -9,6 +7,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from src.sources.vector_db import retriever
 from src.utils import chats_collection, messages_collection
+from src.chatbot.message import Message
 
 
 class Chat:
@@ -16,10 +15,10 @@ class Chat:
         self.history = []
         if chat_id:
             self.id = chat_id
-            self.load()
+            self.load_history()
         else:
             self.id = 0
-            self.load()
+            self.load_history()
 
         self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 
@@ -65,20 +64,21 @@ class Chat:
 
     def ask(self, question):
 
-        messages_collection.insert_one({
-            'content': question,
-            'chat_id': self.id,
-            'timestamp': datetime.datetime.now(),
-            'agent': 'human'
-        })
+        msg_question = Message(
+            chat_id=self.id,
+            content=question,
+            agent='human',
+        )
 
-        answer = self.chain.invoke({"question": question, "chat_history": self.history})
-        messages_collection.insert_one({
-            'content': answer.content,
-            'chat_id': self.id,
-            'timestamp': datetime.datetime.now(),
-            'agent': 'bot'
-        })
+        history = [msg.message.content for msg in self.history]
+        answer = self.chain.invoke({"question": question, "chat_history": history})
+        msg_answer = Message(
+            chat_id=self.id,
+            content=answer.content,
+            agent='bot'
+        )
+
+        self.history.extend([msg_question, msg_answer])
 
         return answer
 
@@ -90,18 +90,18 @@ class Chat:
         update = {"$setOnInsert": chat}
         chats_collection.update_one({"id": self.id}, update, True)
 
-    def load(self):
+    def load_history(self):
         query = {"chat_id": self.id}
         sort = {"timestamp": 1}
+
         for message in messages_collection.find(query).sort(sort):
-            print(message)
-            if message["agent"] == "human":
-                agent_class = HumanMessage
-            elif message["agent"] == "bot":
-                agent_class = AIMessage
-            else:
-                agent_class = AnyMessage
-            self.history.append(agent_class(content=message["content"]))
+            msg = Message(
+                    id=message['_id'],
+                    content=message['content'],
+                    agent=message['agent'],
+                    timestamp=message['timestamp']
+                )
+            self.history.append(msg)
 
 
 if __name__ == "__main__":
