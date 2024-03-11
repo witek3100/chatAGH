@@ -1,9 +1,10 @@
 import datetime
+import langchain_core.messages
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import AIMessage, HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage, AnyMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from src.sources.vector_db import retriever
@@ -12,6 +13,7 @@ from src.utils import chats_collection, messages_collection
 
 class Chat:
     def __init__(self, chat_id=None):
+        self.history = []
         if chat_id:
             self.id = chat_id
             self.load()
@@ -89,17 +91,17 @@ class Chat:
         chats_collection.update_one({"id": self.id}, update, True)
 
     def load(self):
-        history = []
         query = {"chat_id": self.id}
         sort = {"timestamp": 1}
         for message in messages_collection.find(query).sort(sort):
+            print(message)
             if message["agent"] == "human":
                 agent_class = HumanMessage
-            if message["agent"] == "bot":
+            elif message["agent"] == "bot":
                 agent_class = AIMessage
-            history.append(agent_class(content=message["content"]))
-
-        self.history = history
+            else:
+                agent_class = AnyMessage
+            self.history.append(agent_class(content=message["content"]))
 
 
 if __name__ == "__main__":
