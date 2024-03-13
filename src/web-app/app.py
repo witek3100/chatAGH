@@ -1,9 +1,8 @@
 from src.chatbot.chat import Chat
 
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, url_for
 
-app = Flask(__name__)
-
+app = Flask(__name__, static_folder='static/')
 
 @app.route('/')
 def redirect_home():
@@ -36,5 +35,11 @@ def chat(chat_id):
 
   return render_template('chat_tab.html', chat=chat)
 
+@app.route('/get_icon_url/<agent>')
+def get_icon_url(agent):
+  return url_for('static', filename=f"assets/{agent}_icon.png")
+
+
 if __name__ == '__main__':
   app.run(debug=True)
+

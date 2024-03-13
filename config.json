@@ -1,6 +1,6 @@
 {
   "openai": {
-    "api_key": ""
+    "api_key": "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"
   },
   "pinecone": {
     "api_key": "c079a1cd-1698-41b2-b457-74aa836db1aa",
@@ -11,7 +11,6 @@
     "chunk_size": 1200,
     "chunk_overlap": 300
   },
-  "web-app-templates": "templates",
   "mongo": {
     "uri": "mongodb://127.0.0.1:27017",
     "db": "chatagh"
