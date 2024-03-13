@@ -20,7 +20,7 @@ class Chat:
             self.id = chat_id
             self.load_history()
 
-        self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.5)
 
         with open('src/chatbot/prompts/contextualize_prompt.txt', 'r') as file:
             prompt_text = file.read()
@@ -33,7 +33,7 @@ class Chat:
             )
             self.contextualize_chain = contextualize_prompt | self.llm | StrOutputParser()
 
-        with open('src/chatbot/prompts/qa_prompt.txt', 'r') as file:
+        with open('src/chatbot/prompts/qa_prompt_pl.txt', 'r') as file:
             prompt_text = file.read()
             self.qa_prompt = ChatPromptTemplate.from_messages(
                 [
