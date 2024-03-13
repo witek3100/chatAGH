@@ -2,7 +2,7 @@ import os
 import json
 import urllib.request
 
-from langchain_community.document_loaders import PyPDFLoader, UnstructuredHTMLLoader
+from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 from src.utils import config, sources
@@ -50,12 +50,9 @@ def load_pdf(link):
     return docs
 
 def load_html(link):
-    file = 'temp.html'
-    urllib.request.urlretrieve(link, file)
-    loader = UnstructuredHTMLLoader(file)
+    loader = WebBaseLoader(link)
     data = loader.load()
     docs = text_splitter.split_documents(data)
-    os.remove(file)
 
     return docs
 
