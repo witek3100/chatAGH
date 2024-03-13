@@ -1,11 +1,11 @@
 {
   "openai": {
-    "api_key": "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"
+    "api_key": ""
   },
   "pinecone": {
-    "api_key": "c079a1cd-1698-41b2-b457-74aa836db1aa",
-    "index_name": "agh-statutes",
-    "environment": "gcp-starter"
+    "api_key": "",
+    "index_name": "",
+    "environment": ""
   },
   "sources_loader": {
     "chunk_size": 1200,
