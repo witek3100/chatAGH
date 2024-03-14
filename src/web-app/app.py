@@ -39,7 +39,6 @@ def chat(chat_id):
 def get_icon_url(agent):
   return url_for('static', filename=f"assets/{agent}_icon.png")
 
-
 if __name__ == '__main__':
   app.run(debug=True)
 

@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>Chatbot</title>
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chat_tab.css') }}">
-</head>
-<body>
-    <div class="upperbar">
-        Chat<b style="color: green; margin-left: 10px;">A</b><b style="color: black">G</b><b style="color: red">H</b>
-    </div>
+{% extends "base.html" %}
 
-    <div class="main">
-        <div id="chat-container">
+{% block title %}
+<title>Chat</title>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div id="chat-container">
+        <div id="chat-messages-box">
             <div id="chat-messages">
                 {% for message in chat.history %}
                     <div class="message-box">
@@ -37,20 +30,15 @@
               <span class="dot"></span>
             </div>
         </div>
+    </div>
 
-        <div class="chat-input-container">
-            <form id="chat-form">
-                <input id="question-input" type="text" name="message" class="chat-input" placeholder="O co chcesz zapytać?">
-                <div class="button-box">
-                    <button id="send-button" class="send-button">Zapytaj</button>
-                </div>
-            </form>
-            <a class="github-link" href="https://github.com/witek3100/chatAGH">
-                <img src="{{ url_for('static', filename='assets/github_icon.png') }}" alt="github-repo" class="icon">
-                <span style="margin-top: 20px;">ChatAGH github repository</span>
-            </a>
-        </div>
-
+    <div class="chat-input-container">
+        <form id="chat-form">
+            <input id="question-input" type="text" name="message" class="chat-input" placeholder="O co chcesz zapytać?">
+            <div class="button-box">
+                <button id="send-button" class="send-button">Zapytaj</button>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -70,5 +58,5 @@
         });
         sendButton.addEventListener("click", ask);
     </script>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -1,13 +1,10 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #555;
-    margin: 0;
-    padding: 0;
+.main {
+    width: 100%;
+    margin-top: -60px;
 }
 
 #chat-container {
     background-color: rgba(0, 0, 0, 0.1);
-    margin-bottom: 255px;
     padding-bottom: 80px;
     width: 50%;
     border-radius: 10px;
@@ -15,17 +12,13 @@ body {
     height: calc(100vh - 200px);
 }
 
-.github-link {
-    justify-content: center;
-    color: beige;
-    display: flex;
-    margin-top: 20px;
-    margin-bottom: 20px;
+#chat-container::-webkit-scrollbar {
+    display: none;
 }
 
 .chat-input-container {
     position: fixed;
-    bottom: 0;
+    bottom: 100px;
     width: 50%;
     background-color: #555;
     z-index: 1;
@@ -79,19 +72,11 @@ body {
 }
 
 #chat-messages {
-    margin-top: 200px;
+    margin-top: 50px;
 }
 
-.upperbar {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    background-color: #333;
-    font-size: 50px;
-    color: white;
-    width: 100%;
-    height: 150px;
-    align-items: center;
+#chat-messages-box {
+    margin-bottom: 250px;
 }
 
 .message {
@@ -113,6 +98,7 @@ body {
 }
 
 .loading-dots {
+    position: relative;
     display: flex;
     justify-content: space-between;
     width: 80px;
