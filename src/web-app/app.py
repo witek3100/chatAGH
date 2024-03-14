@@ -35,9 +35,13 @@ def chat(chat_id):
 
   return render_template('chat_tab.html', chat=chat)
 
-@app.route('/get_icon_url/<agent>')
-def get_icon_url(agent):
-  return url_for('static', filename=f"assets/{agent}_icon.png")
+@app.route('/get_asset/<asset>')
+def get_icon_url(asset):
+  return url_for('static', filename=f"assets/{asset}")
+
+@app.route('/login')
+def login():
+  pass
 
 if __name__ == '__main__':
   app.run(debug=True)
