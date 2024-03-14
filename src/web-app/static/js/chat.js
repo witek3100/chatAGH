@@ -2,7 +2,7 @@ function ask(event) {
   event.preventDefault();
 
   const formData = new FormData(chatForm);
-  updateChat(inputBox.value, "user")
+  updateChat(inputBox.value, "user_icon.png")
 
   $(".loading-dots").show();
 
@@ -18,7 +18,7 @@ function ask(event) {
     processData: false,
     contentType: false,
     success: function(chat) {
-        updateChat(chat["answer"], "bot")
+        updateChat(chat["answer"], "bot_icon.png")
         sendButton.disabled = false;
         sendButton.style.backgroundColor = "#4CAF50";
         $(".loading-dots").hide();
@@ -61,6 +61,6 @@ function updateChat(message, agent) {
 }
 
 async function getImageURL(agent) {
-    const response = await fetch(`/get_icon_url/${agent}`);
+    const response = await fetch(`/get_asset/${agent}`);
      return await response.text();
   }

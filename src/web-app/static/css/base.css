@@ -1,0 +1,41 @@
+
+body {
+    overflow: hidden;
+    /*background-image: url("/get_asset/background.jpeg");*/
+    background-color: #555;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-left: -10px;
+}
+
+.upperbar {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    font-size: 50px;
+    color: white;
+    width: 100%;
+    height: 150px;
+    align-items: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #333;
+    width: 100%;
+    height: 120px;
+    margin-left: -10px;
+}
+
+.github-link {
+    justify-content: center;
+    color: beige;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

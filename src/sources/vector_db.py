@@ -49,4 +49,5 @@ def search_docs(query, num_docs=4):
 
 
 if __name__ == '__main__':
-    init_index()
+    # init_index()
+    search_docs('Nie ukończyłem 18 lat. Czy mogę wziąć udział w rekrutacji na studia?')
