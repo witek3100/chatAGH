@@ -13,11 +13,26 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chat_tab.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home_tab.css') }}">
+
+    <style>
+        body {
+            overflow: hidden;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url({{url_for('static', filename='assets/background.jpeg')}});
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="upperbar">
-            Chat<b style="color: green; margin-left: 10px;">A</b><b style="color: black">G</b><b style="color: red">H</b>
+            ChatAGH
+        </div>
+        <div class="flag">
+            <div class="color green"></div>
+            <div class="color black"></div>
+            <div class="color red"></div>
         </div>
     </header>
 
@@ -27,7 +42,7 @@
     <footer class="footer">
         <a class="github-link" href="https://github.com/witek3100/chatAGH">
             <img src="{{ url_for('static', filename='assets/github_icon.png') }}" alt="github-repo" class="icon">
-            <span style="margin-top: 20px;">ChatAGH github repository</span>
+            <span style="margin-top: 25px; margin-left: 10px;">ChatAGH github</span>
         </a>
     </footer>
 </body>

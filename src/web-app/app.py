@@ -30,7 +30,8 @@ def chat(chat_id):
 
     return jsonify({
       'query': user_input,
-      'answer': answer.content_html
+      'answer': answer.content_html,
+      'source': answer.source
     })
 
   return render_template('chat_tab.html', chat=chat)

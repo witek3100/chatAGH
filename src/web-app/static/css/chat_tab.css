@@ -4,7 +4,7 @@
 }
 
 #chat-container {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8);
     padding-bottom: 80px;
     width: 50%;
     border-radius: 10px;
@@ -20,7 +20,7 @@
     position: fixed;
     bottom: 100px;
     width: 50%;
-    background-color: #555;
+    background-color: #1c1a20;
     z-index: 1;
     border-radius: 20px;
 }
@@ -30,7 +30,7 @@
     border-radius: 20px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    background-color: #333;
+    background-color: #0c040c;
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -42,7 +42,7 @@
     padding: 15px;
     border-radius: 30px;
     border: none;
-    background-color: #555;
+    background-color: #2c2d2c;
     color: #fff;
     margin-right: 10px;
     font-size: 30px;
@@ -60,7 +60,7 @@
     height: 80px;
     border: none;
     border-radius: 30px;
-    background-color: #4CAF50;
+    background-color: #1b5a10;
     color: #fff;
     cursor: pointer;
     font-size: 16px;
@@ -83,19 +83,17 @@
     color: white;
     font-size: 35px;
     margin: 20px;
-    padding: 20px;
     border-radius: 15px;
-    background-color: #444444;
+    background-color: #2c2d2c;
 }
 
 .text {
-    padding: 10px;
+    padding: 20px;
     border-radius: 15px;
-    background-color: #555555;
 }
 
 .urls {
-    padding: 10px;
+    padding: 20px;
     font-size: 28px;
 }
 
@@ -106,13 +104,25 @@
 .message-box {
     display: flex;
     flex-direction: row;
-    padding: 20px;
+    padding: 15px;
 }
 
 .icon {
     width: 50px;
     height: 50px;
     margin-top: 10px;
+}
+
+.icon-bot {
+    padding: 10px;
+    border-radius: 30px;
+    background-color: #6f090f;
+}
+
+.icon-user {
+    padding: 10px;
+    border-radius: 30px;
+    background-color: #1b5a10;
 }
 
 .loading-dots {

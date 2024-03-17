@@ -14,6 +14,10 @@ body {
     text-align: center;
     color: white;
     font-size: 30px;
+    background-color: rgba(10, 10, 10, 0.8);
+    margin: 100px 400px 1000px 400px;
+    padding: 50px 0px 50px 0px;
+    border-radius: 20px;
 }
 
 .buttons {
@@ -28,7 +32,7 @@ body {
     margin: 100px;
     color: white;
     font-size: 30px;
-    background-color: #333;
+    background-color: rgba(10, 10, 10, 0.8);
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;

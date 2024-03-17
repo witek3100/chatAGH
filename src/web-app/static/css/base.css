@@ -1,10 +1,4 @@
 
-body {
-    overflow: hidden;
-    /*background-image: url("/get_asset/background.jpeg");*/
-    background-color: #555;
-}
-
 header {
     position: fixed;
     top: 0;
@@ -15,7 +9,7 @@ header {
 .upperbar {
     display: flex;
     justify-content: center;
-    background-color: #333;
+    background-color: #0c040c;
     font-size: 50px;
     color: white;
     width: 100%;
@@ -26,7 +20,7 @@ header {
 footer {
     position: fixed;
     bottom: 0;
-    background-color: #333;
+    background-color: #0c040c;
     width: 100%;
     height: 120px;
     margin-left: -10px;
@@ -38,4 +32,26 @@ footer {
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.flag {
+    display: flex;
+    justify-content: center;
+}
+
+.color {
+    width: 34%;
+    height: 10px;
+}
+
+.green {
+    background-color: #1b5a10;
+}
+
+.black {
+    background-color: #0c040c;
+}
+
+.red {
+    background-color: #6f090f;
 }

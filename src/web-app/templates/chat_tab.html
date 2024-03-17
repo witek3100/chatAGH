@@ -12,19 +12,21 @@
                 {% for message in chat.history %}
                     <div class="message-box">
                         {% if message.agent == 'bot' %}
-                            <img src="{{ url_for('static', filename='assets/bot_icon.png') }}" alt="bot-icon" class="icon">
+                            <img src="{{ url_for('static', filename='assets/bot_icon.png') }}" alt="bot-icon" class="icon icon-bot">
                         {% elif message.agent == 'human' %}
-                            <img src="{{ url_for('static', filename='assets/user_icon.png') }}" alt="user-icon" class="icon">
+                            <img src="{{ url_for('static', filename='assets/user_icon.png') }}" alt="user-icon" class="icon icon-user">
                         {% endif %}
                         <div class="message">
                             <div class="text">
                                 {{ message.content_html|safe }}
                             </div>
+                            {% if message.source %}
                             <div class="urls">
                                 {% for url in message.source %}
                                     <a href="{{ url }}">{{ url }}</a>
                                 {% endfor %}
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
