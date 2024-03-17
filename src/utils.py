@@ -1,14 +1,18 @@
+import os
 import json
 import logging
 import traceback
+import pymongo
 from datetime import datetime
 
-import pymongo
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-with open("src/configs/config.json") as config_file:
+config_path = os.path.join(project_root, 'src', 'configs', 'config.json')
+with open(config_path) as config_file:
     config = json.load(config_file)
 
-with open("src/sources/sources.json") as sources_file:
+sources_path = os.path.join(project_root, 'src', 'sources', 'sources.json')
+with open(sources_path) as sources_file:
     sources = json.load(sources_file)
 
 mongo_uri = config["mongo"]["uri"]

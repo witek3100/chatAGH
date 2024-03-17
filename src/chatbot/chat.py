@@ -1,3 +1,4 @@
+import os
 import datetime
 
 from langchain_core.output_parsers import StrOutputParser
@@ -9,19 +10,22 @@ from src.sources.vector_db import retriever
 from src.utils import chats_collection, messages_collection
 from src.chatbot.message import Message
 
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 class Chat:
     def __init__(self, chat_id=None):
         self.history = []
+        self.sources = []
         self.created = datetime.datetime.now()
 
         if chat_id:
             self.id = chat_id
             self.load_history()
 
-        self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.5)
+        self.llm = ChatOpenAI(model_name="gpt-4-0125-preview", temperature=0.7)
 
-        with open('src/chatbot/prompts/contextualize_prompt.txt', 'r') as file:
+        prompt_path = os.path.join(project_root, 'chatbot/prompts/contextualize_prompt.txt')
+        with open(prompt_path) as file:
             prompt_text = file.read()
             contextualize_prompt = ChatPromptTemplate.from_messages(
                 [
@@ -32,7 +36,8 @@ class Chat:
             )
             self.contextualize_chain = contextualize_prompt | self.llm | StrOutputParser()
 
-        with open('src/chatbot/prompts/qa_prompt_pl.txt', 'r') as file:
+        prompt_path = os.path.join(project_root, 'chatbot/prompts/qa_prompt.txt')
+        with open(prompt_path) as file:
             prompt_text = file.read()
             self.qa_prompt = ChatPromptTemplate.from_messages(
                 [
@@ -54,7 +59,8 @@ class Chat:
             self.save()
 
     def format_docs(self, docs):
-        return "\n\n".join(doc.page_content for doc in docs)
+        formated_docs = [f'## text: \n {doc.page_content} \n\n ## source: {doc.metadata["source"]}' for doc in docs]
+        return "\n\n\n ### Context: \n".join(formated_docs)
 
     def contextualized_question(self, input: dict):
         if input.get("chat_history"):
@@ -71,15 +77,19 @@ class Chat:
 
         history = [msg.message.content for msg in self.history]
         answer = self.chain.invoke({"question": question, "chat_history": history})
+
+        content, urls = self._parse_answer(answer)
+
         msg_answer = Message(
             chat_id=self.id,
-            content=answer.content,
-            agent='bot'
+            content=content,
+            agent='bot',
+            source=urls
         )
 
         self.history.extend([msg_question, msg_answer])
 
-        return answer
+        return msg_answer
 
     def save(self):
         chat = {
@@ -98,9 +108,19 @@ class Chat:
                     id=message['_id'],
                     content=message['content'],
                     agent=message['agent'],
-                    timestamp=message['timestamp']
+                    timestamp=message['timestamp'],
+                    source=message['source']
                 )
             self.history.append(msg)
+
+    def _parse_answer(self, answer):
+        split = answer.content.split('## links:')
+        answer = split[0]
+        try:
+            urls = [url for url in split[1].split('\n') if len(url) > 5]
+        except IndexError:
+            urls = []
+        return answer, urls
 
 
 if __name__ == "__main__":

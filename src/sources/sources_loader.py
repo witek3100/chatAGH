@@ -1,7 +1,3 @@
-import os
-import json
-import urllib.request
-
 from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -53,6 +49,10 @@ def load_html(link):
     loader = WebBaseLoader(link)
     data = loader.load()
     docs = text_splitter.split_documents(data)
-
+    docs = [format_html(doc) for doc in docs]
+    docs = [doc for doc in docs if len(doc.page_content) > 10]
     return docs
 
+def format_html(doc):
+    doc.page_content = doc.page_content.replace('\n\n\n\n', '\n\n')
+    return doc

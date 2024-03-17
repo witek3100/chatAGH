@@ -30,7 +30,7 @@ def chat(chat_id):
 
     return jsonify({
       'query': user_input,
-      'answer': answer.content
+      'answer': answer.content_html
     })
 
   return render_template('chat_tab.html', chat=chat)
@@ -44,5 +44,5 @@ def login():
   pass
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(debug=True, port=5010)
 

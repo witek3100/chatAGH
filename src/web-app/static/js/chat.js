@@ -53,7 +53,7 @@ function updateChat(message, agent) {
 
     const msg = document.createElement("div")
     msg.classList.add("message")
-    msg.textContent = message
+    msg.innerHTML = message
     msg_box.appendChild(msg)
 
     chatMessages.appendChild(msg_box)

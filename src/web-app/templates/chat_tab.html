@@ -18,7 +18,12 @@
                         {% endif %}
                         <div class="message">
                             <div class="text">
-                                {{ message.message.content }}
+                                {{ message.content_html|safe }}
+                            </div>
+                            <div>
+                                {% for url in message.source %}
+                                    {{ url }}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

@@ -24,10 +24,16 @@ if __name__ == "__main__":
         'https://www.agh.edu.pl',
         'https://rekrutacja.agh.edu.pl'
     ]
+
+    def format_link(link: str):
+        return link.split('#')[0]
+
     pages = []
     for domain in domains:
-        pages.extend(get_pages_from_sitemap(domain))
-    sources['html'] = pages
+        new_links = [format_link(page) for page in get_pages_from_sitemap(domain)]
+        pages.extend(new_links)
+
+    sources['html'] = list(set(pages))
 
     print(f"{len(pages)} url's found in domains {domains}")
 

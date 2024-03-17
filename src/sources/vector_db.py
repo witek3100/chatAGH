@@ -37,6 +37,7 @@ def init_index():
         spec=pinecone.PodSpec(environment=pinecone_env)
     )
     PineconeStore.from_documents(docs, embeddings, index_name=index_name)
+    print('finished')
 
 def search_docs(query, num_docs=4):
     print(f'Searching for {num_docs} docs for query: {query}')
@@ -49,5 +50,5 @@ def search_docs(query, num_docs=4):
 
 
 if __name__ == '__main__':
-    # init_index()
-    search_docs('Nie ukończyłem 18 lat. Czy mogę wziąć udział w rekrutacji na studia?')
+    init_index()
+    # search_docs('Nie ukończyłem 18 lat. Czy mogę wziąć udział w rekrutacji na studia?')
