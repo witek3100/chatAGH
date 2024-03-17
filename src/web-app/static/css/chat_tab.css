@@ -83,6 +83,24 @@
     color: white;
     font-size: 35px;
     margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #444444;
+}
+
+.text {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #555555;
+}
+
+.urls {
+    padding: 10px;
+    font-size: 28px;
+}
+
+.urls a {
+    color: white;
 }
 
 .message-box {

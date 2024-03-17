@@ -20,9 +20,9 @@
                             <div class="text">
                                 {{ message.content_html|safe }}
                             </div>
-                            <div>
+                            <div class="urls">
                                 {% for url in message.source %}
-                                    {{ url }}
+                                    <a href="{{ url }}">{{ url }}</a>
                                 {% endfor %}
                             </div>
                         </div>
