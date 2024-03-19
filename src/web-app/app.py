@@ -1,6 +1,8 @@
-from src.chatbot.chat import Chat
+import os
 
 from flask import Flask, render_template, request, redirect, jsonify, url_for
+
+from src.chatbot.chat import Chat
 
 app = Flask(__name__, static_folder='static/')
 

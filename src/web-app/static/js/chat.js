@@ -18,7 +18,6 @@ function ask(event) {
     processData: false,
     contentType: false,
     success: function(chat) {
-        alert(chat['source'])
         updateChat(chat["answer"], "bot_icon.png", chat['source'])
         sendButton.disabled = false;
         sendButton.style.backgroundColor = "#4CAF50";
