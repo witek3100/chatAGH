@@ -1,5 +1,5 @@
 # Overview
-This project aims to build a conversational AI chatbot to provide information and support to students and staff of AGH University of Science and Technology. By harnessing power of Large Language Models and RAG technique, we can integrate multiple knowledge sources, like AGH websites and publicly available documents (statutes, resolutions etc.) to deliver precise and contextually appropriate responses through a user-friendly web application.
+Aim of this project is to utilize power of large language models and [https://research.ibm.com/blog/retrieval-augmented-generation-RAG](retrieval-augmented generation) 
 
 v0.1-beta - https://api-test-2rs775oyyq-ez.a.run.app/
 
