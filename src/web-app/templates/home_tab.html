@@ -5,18 +5,31 @@
 {% endblock %}
 
 {% block content %}
-    <div class="buttons">
-        <a class="link" id="new-chat" href="new_chat">
-            NEW CHAT
-        </a>
-        <a class="link" id="login" href="login">
-            LOGIN
-        </a>
-    </div>
-    <div class="about">
-        <h1>About project</h1>
-        <div>
-            Aim of chatAGH is to provide information and support to students and staff of AGH University of Science and Technology.
+    <div class="home">
+        <div class="buttons">
+            <div class="chat-button">
+                <a class="link" id="new-chat" href="new_chat">
+                    New Chat
+                </a>
+            </div>
+            <div class="small-buttons">
+                <a class="link link-small" id="login" href="login">
+                    Login
+                </a>
+                <a class="link link-small" id="signup" href="signup">
+                    Sign up
+                </a>
+            </div>
+        </div>
+        <div class="about">
+            <h1>About project</h1>
+            <div class="about-text">
+                Aim of this project is to utilize power of large language models in conjunction with retrieval-augmented generation to create conversational ai chatbot for academic community at AGH univeristy, allowing quick search for reliable information through user friendly web application.
+            </div>
+            <a class="github-link" href="https://github.com/witek3100/chatAGH">
+                <img src="{{ url_for('static', filename='assets/github_icon.png') }}" alt="github-repo" class="icon">
+                <span style="margin-top: 18px; margin-left: 10px;">ChatAGH github</span>
+            </a>
         </div>
     </div>
 {% endblock %}

@@ -3,27 +3,18 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    margin-left: -10px;
+    margin-left: -8px;
 }
 
 .upperbar {
     display: flex;
     justify-content: center;
     background-color: #0c040c;
-    font-size: 50px;
+    font-size: 25px;
     color: white;
     width: 100%;
-    height: 150px;
+    height: 70px;
     align-items: center;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    background-color: #0c040c;
-    width: 100%;
-    height: 120px;
-    margin-left: -10px;
 }
 
 .github-link {
@@ -32,6 +23,7 @@ footer {
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
+    font-size: 10px;
 }
 
 .flag {
@@ -54,4 +46,13 @@ footer {
 
 .red {
     background-color: #6f090f;
+}
+
+.home-link {
+    color: white;
+    text-decoration: none;
+}
+
+.home-link-box {
+    padding: 20px;
 }
