@@ -1,7 +1,11 @@
-# Overview
-Aim of this project is to utilize power of large language models and [https://research.ibm.com/blog/retrieval-augmented-generation-RAG](retrieval-augmented generation) 
+# About
+Aim of this project is to utilize power of large language models in conjunction with [retrieval-augmented generation](https://research.ibm.com/blog/retrieval-augmented-generation-RAG) 
+to create conversational ai chatbot for academic community at AGH univeristy, allowing quick search for reliable information through user friendly web application.
 
-v0.1-beta - https://api-test-2rs775oyyq-ez.a.run.app/
+Checkout initial version here:
+https://api-test-2rs775oyyq-ez.a.run.app/
+
+# Project status and next steps
 
 # Tech stack
 - Python as a main programming language
