@@ -1,7 +1,7 @@
 variable "project_id" {
   description = "The name of the project"
   type        = string
-  default     = "chat-agh"
+  default     = "chat-agh-417420"
 }
 
 variable "region" {
@@ -25,5 +25,5 @@ variable "repository" {
 variable "docker_image" {
   description = "The name of the Docker image in the Artifact Registry repository to be deployed to Cloud Run"
   type        = string
-  default     = "my-api"
+  default     = "chat-agh"
 }

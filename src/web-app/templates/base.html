@@ -17,9 +17,9 @@
     <style>
         body {
             overflow: hidden;
-            background-size: cover;
-            background-repeat: no-repeat;
+            background-size: 100% auto;
             background-position: center;
+            background-attachment: fixed;
             background-image: url({{url_for('static', filename='assets/background.jpeg')}});
         }
     </style>
@@ -27,7 +27,11 @@
 <body>
     <header>
         <div class="upperbar">
-            ChatAGH
+            <a href="/" class="home-link">
+                <div class="home-link-box">
+                    ChatAGH
+                </div>
+            </a>
         </div>
         <div class="flag">
             <div class="color green"></div>
@@ -39,11 +43,5 @@
     {% block content %}
     {% endblock %}
 
-    <footer class="footer">
-        <a class="github-link" href="https://github.com/witek3100/chatAGH">
-            <img src="{{ url_for('static', filename='assets/github_icon.png') }}" alt="github-repo" class="icon">
-            <span style="margin-top: 25px; margin-left: 10px;">ChatAGH github</span>
-        </a>
-    </footer>
 </body>
 </html>
