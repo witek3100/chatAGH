@@ -1,7 +1,7 @@
 # Overview
 This project aims to build a conversational AI chatbot to provide information and support to students and staff of AGH University of Science and Technology. By harnessing power of Large Language Models and RAG technique, we can integrate multiple knowledge sources, like AGH websites and publicly available documents (statutes, resolutions etc.) to deliver precise and contextually appropriate responses through a user-friendly web application.
 
-v0.1-beta - https://api-test-2rs775oyyq-ez.a.run.app/chat/65fac4aa7eda200461b4c876
+v0.1-beta - https://api-test-2rs775oyyq-ez.a.run.app/
 
 # Tech stack
 - Python as a main programming language
