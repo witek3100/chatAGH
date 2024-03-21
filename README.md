@@ -69,3 +69,7 @@ CharAGH is currently on very early stage of development, therefore bugs are expe
 # Knowledge sources
 
 Currently knowledge sources invloves pdf files with AGH statutes and html's scrapped from agh domain sitemap. Full list available in sources.json file in sources directory. 
+
+# Run locally instruction 
+
+# Credits
