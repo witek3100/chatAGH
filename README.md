@@ -9,7 +9,7 @@ CharAGH is currently on very early stage of development, therefore bugs are expe
 
 # Tech stack
 ### Chatbot
-- The backbone of our project relies on the langchain llm's framework, integrating OpenAI GPT4 model. Currently, knowledge sources embeddings are stored in the Pinecone vector database, allowing for, mentioned earlier, RAG technique. Migration to Mongo atlas is planned in order to store embeddings and web-app data in same place, minimizing costs.
+- The backbone of project relies on the langchain llm's framework, integrating OpenAI GPT4 model. Currently, knowledge sources embeddings are stored in the Pinecone vector database, allowing for, mentioned earlier, RAG technique. Migration to Mongo atlas is planned in order to store embeddings and web-app data in same place, minimizing costs.
 
 ### Web App
 - Serving as the user interface for chatbot, web application is created using Flask and jQuery. This combination ensures a smooth and intuitive experience for users interacting with the chatbot as weel as ease of development.
