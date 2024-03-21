@@ -61,7 +61,7 @@ CharAGH is currently on very early stage of development, therefore bugs are expe
    |     |      |     └── home_tab.html
    |     |      └── app.py
    |     |
-   |     └── utils.py
+   |     └── utils.py      ## Utilities (Logger, mongo client etc.)
    |
    └── README.md                 
 </pre>
