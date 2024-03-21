@@ -2,7 +2,7 @@
 Aim of this project is to utilize power of large language models in conjunction with [retrieval-augmented generation](https://research.ibm.com/blog/retrieval-augmented-generation-RAG) 
 to create conversational ai chatbot for academic community at AGH univeristy, allowing quick search for reliable information through user friendly web application.
 
-### Checkout latest version [*here*](https://api-test-2rs775oyyq-ez.a.run.app/)
+### Checkout latest version [*here*](https://chat-agh-2rs775oyyq-ez.a.run.app)
 
 1. [Project status and next steps](#Project-status-and-next-steps)
 2. [Tech stack](#Tech-stack)
