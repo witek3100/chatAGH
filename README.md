@@ -4,6 +4,13 @@ to create conversational ai chatbot for academic community at AGH univeristy, al
 
 ### Checkout latest version [*here*](https://api-test-2rs775oyyq-ez.a.run.app/)
 
+1. [Project status and next steps](#Project-status-and-next-steps)
+2. [Tech stack](#Tech-stack)
+3. [Project structure](#Project-structure)
+4. [Knowledge sources](#Knowledge-sources)
+5. [Run locally instruction](#Run-locally-instruction)
+6. [Credits](#Credits)
+
 # Project status and next steps
 CharAGH is currently on very early stage of development, therefore bugs are expected and amount of functionalities is limited, now only to creating new, one time chats. Next steps involves expanding web app (among others by adding accouts funcionality, to allow users store and return to their chats), imporoving chatting by enhancing knowledge sources as well as chatbot itself (prompts, model params etc.) and a lot of other, smaller changes and fixes.
 
