@@ -20,22 +20,30 @@ CharAGH is currently on very early stage of development, therefore bugs are expe
 # Project structure
 <pre>
    ├── src
-   |     ├── chatbot
+   |     ├── infra      ## Terraform files, deployment automation
+   |     |      ├── main.tf
+   |     |      └── variables.tf
+   |     |
+   |     ├── chatbot     ## 
    |     |      ├── prompts
    |     |      ├── skills
    |     |      ├── chat.py
    |     |      └── message.py
-   |     ├── configs
+   |     |
+   |     ├── configs          ## Project configuration files
    |     |      ├── config.json
    |     |      └── requirements.txt
-   |     ├── sources
+   |     |
+   |     ├── sources             ## Knowledge sources generator (web scrappers, sitemap parser, langchain document loaders, and pinecone index initialization)
    |     |      ├── sources.json
    |     |      ├── sources_loader.py
    |     |      ├── urls_finder.py
    |     |      └── vector_db.py
-   |     ├── tests
-   |     ├── web-app
-   |     |      ├── static
+   |     |
+   |     ├── tests      ## tests - TODO
+   |     |
+   |     ├── web-app                 ## Web application - user interface to chatbot
+   |     |      ├── static        
    |     |      |     ├── assets
    |     |      |     ├── css
    |     |      |     |    └── chat_tab.css
@@ -45,6 +53,7 @@ CharAGH is currently on very early stage of development, therefore bugs are expe
    |     |      |     ├── chat_tab.html
    |     |      |     └── home_tab.html
    |     |      └── app.py
+   |     |
    |     └── utils.py
    |
    └── README.md                 
@@ -52,4 +61,4 @@ CharAGH is currently on very early stage of development, therefore bugs are expe
 
 # Knowledge sources
 
-
+Currently knowledge sources invloves pdf files with AGH statutes and html's scrapped from agh domain sitemap. Full list available in sources.json file in sources directory. 
