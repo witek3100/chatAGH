@@ -101,7 +101,7 @@ resource "google_artifact_registry_repository_iam_member" "docker_pusher_iam" {
 # Deploy image to Cloud Run
 resource "google_cloud_run_service" "api_test" {
   provider = google
-  name     = "api-test"
+  name     = "chat-agh"
   location = var.region
   template {
     spec {

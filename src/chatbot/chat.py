@@ -1,5 +1,6 @@
 import os
 import datetime
+import markdown
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -68,28 +69,51 @@ class Chat:
         else:
             return input["question"]
 
-    def ask(self, question):
+    # def ask(self, question):
+    #     msg_question = Message(
+    #         chat_id=self.id,
+    #         content=question,
+    #         agent='human',
+    #     )
+    #
+    #     history = [msg.message.content for msg in self.history]
+    #     answer = self.chain.invoke({"question": question, "chat_history": history})
+    #
+    #     content, urls = self._parse_answer(answer)
+    #
+    #     msg_answer = Message(
+    #         chat_id=self.id,
+    #         content=content,
+    #         agent='bot',
+    #         source=urls
+    #     )
+    #
+    #     self.history.extend([msg_question, msg_answer])
+    #
+    #     return msg_answer
+
+    def get_streaming_response(self, question):
         msg_question = Message(
             chat_id=self.id,
             content=question,
             agent='human',
         )
 
+        content = ''
         history = [msg.message.content for msg in self.history]
-        answer = self.chain.invoke({"question": question, "chat_history": history})
-
-        content, urls = self._parse_answer(answer)
+        for token in self.chain.stream({"question": question, 'chat_history': history}):
+            content += token.content
+            content_html = markdown.markdown(content).replace('\n', '')
+            yield f"data: {content_html}\n\n"
 
         msg_answer = Message(
             chat_id=self.id,
             content=content,
             agent='bot',
-            source=urls
         )
-
         self.history.extend([msg_question, msg_answer])
 
-        return msg_answer
+        yield 'data: <!END>\n\n'
 
     def save(self):
         chat = {

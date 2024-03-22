@@ -1,2 +1,2 @@
 src/configs/config.json
-infra/infrastructure_service_account.json
+src/infra/infrastructure_service_account.json
