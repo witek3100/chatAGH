@@ -1,36 +1,28 @@
-function ask(event) {
-  event.preventDefault();
+function ask() {
 
-  const formData = new FormData(chatForm);
-  updateChat(inputBox.value, "user_icon.png", [])
+    const formData = new FormData(chatForm);
+    const question = inputBox.value
+    updateChat(question, "user_icon.png", [])
 
-  $(".loading-dots").show();
+    $(".loading-dots").show();
 
-  sendButton.disabled = true;
-  sendButton.style.backgroundColor = "#555"
+    sendButton.disabled = true;
+    sendButton.style.backgroundColor = "#555"
 
-  chatBox.scrollTop = chatBox.scrollHeight
+    chatBox.scrollTop = chatBox.scrollHeight
 
-  $.ajax({
-    url: chatId,
-    type: "POST",
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function(chat) {
-        updateChat(chat["answer"], "bot_icon.png", chat['source'])
-        sendButton.disabled = false;
-        sendButton.style.backgroundColor = "#4CAF50";
-        $(".loading-dots").hide();
-        chatBox.scrollTop = chatBox.scrollHeight + 100
-    },
-    error: function(jqXHR, textStatus, errorMessage) {
-        console.error("Error submitting form:", errorMessage);
-        sendButton.disabled = false;
-        sendButton.style.backgroundColor = "#4CAF50";
-        $(".loading-dots").hide();
-    }
-  });
+    var url = `/get_response/${chatId}/${question}`
+    var eventSource = new EventSource(url);
+    $(".loading-dots").hide();
+    eventSource.onmessage = function () {
+                var token = event.data;
+                console.log(token)
+                if (token === '<!END>') {
+                    console.log('closing')
+                    eventSource.close()
+                }
+                $('#chat-messages').append('<h1 style="color: white">' + token + '</h1>');
+            };
 }
 
 function updateChat(message, agent, source) {

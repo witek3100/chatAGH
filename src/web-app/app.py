@@ -1,6 +1,13 @@
 import os
-
-from flask import Flask, render_template, request, redirect, jsonify, url_for
+from flask import (
+  Flask,
+  render_template,
+  request,
+  redirect,
+  jsonify,
+  url_for,
+  Response
+)
 
 from src.chatbot.chat import Chat
 
@@ -19,6 +26,20 @@ def create_new_chat():
   chat = Chat()
   return redirect(f'/chat/{chat.id}')
 
+@app.route('/get_response/<chat_id>/<question>')
+def get_streaming_response(chat_id, question):
+  chat = Chat(chat_id=chat_id)
+  def ask():
+    token = 'hej'
+    for i in range(20):
+      print(i)
+      if i == 15:
+        print('close')
+        yield "data: <!END>\n\n"
+      yield f"data: {token} {i}\n\n"
+
+  return Response(ask(), content_type='text/event-stream')
+
 @app.route('/chat/<chat_id>', methods=['GET', 'POST'])
 def chat(chat_id):
   chat = Chat(chat_id=chat_id)
@@ -27,14 +48,8 @@ def chat(chat_id):
     pass
 
   if request.method == 'POST':
-    user_input = request.form.get('message')
-    answer = chat.ask(user_input)
-
-    return jsonify({
-      'query': user_input,
-      'answer': answer.content_html,
-      'source': answer.source
-    })
+    question = request.form.get('message')
+    return jsonify({})
 
   return render_template('chat_tab.html', chat=chat)
 

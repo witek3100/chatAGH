@@ -3,6 +3,7 @@
 FROM python:3.12
 
 WORKDIR /code
+
 COPY /src /code/src
 
 ENV HOST 0.0.0.0
