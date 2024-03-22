@@ -1,33 +1,36 @@
 function ask() {
+
+    if (sendButton.disabled === true) {
+        return 0
+    }
+
+    sendButton.disabled = true;
+    sendButton.style.backgroundColor = "#555"
+
     const question = inputBox.value
     inputBox.value = ""
 
     updateChat(question, "user_icon.png", [])
 
-    $(".loading-dots").show();
-
-    sendButton.disabled = true;
-    sendButton.style.backgroundColor = "#555"
-    chatBox.scrollTop = chatBox.scrollHeight
-
     var url = `/get_response/${chatId}/${question}`
     var eventSource = new EventSource(url);
-    $(".loading-dots").hide();
 
     var message_to_stream = updateChat('', "bot_icon.png", [])
 
+    chatBox.scrollTop = chatBox.scrollHeight + 100
+
     eventSource.onmessage = function () {
-                $(".loading-dots").hide();
-                 var token = event.data;
-                 if (token === '<!END>') {
-                     sendButton.disabled = false;
-                     sendButton.style.backgroundColor = "#4CAF50";
-                     chatBox.scrollTop = chatBox.scrollHeight + 100
-                     eventSource.close()
-                 } else {
-                     message_to_stream.innerHTML += token
-                 }
-             };
+        $(".loading-dots").hide();
+        var token = event.data;
+        if (token === '<!END>') {
+            sendButton.disabled = false;
+            sendButton.style.backgroundColor = "#4CAF50";
+            chatBox.scrollTop = chatBox.scrollHeight + 100
+            eventSource.close()
+        } else {
+            message_to_stream.innerHTML += token
+        }
+    };
 }
 
 
@@ -54,9 +57,17 @@ function updateChat(message, agent, source) {
 
     const msg = document.createElement("div")
     msg.classList.add("message")
+
     const txt = document.createElement("div")
     txt.classList.add("text")
-    txt.innerHTML = message
+    if (message === '') {
+        const loading_dots = document.createElement("div")
+        loading_dots.classList.add("loading-dots")
+        loading_dots.innerText = '. . .'
+        txt.appendChild(loading_dots)
+    } else {
+        txt.innerHTML = message
+    }
     msg.appendChild(txt)
 
     if (source.length > 0) {
