@@ -1,5 +1,6 @@
 import os
 import datetime
+import markdown
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -102,13 +103,13 @@ class Chat:
         history = [msg.message.content for msg in self.history]
         for token in self.chain.stream({"question": question, 'chat_history': history}):
             content += token.content
-            yield f"data: {token.content}\n\n"
+            content_html = markdown.markdown(content).replace('\n', '')
+            yield f"data: {content_html}\n\n"
 
         msg_answer = Message(
             chat_id=self.id,
             content=content,
             agent='bot',
-            source=[]
         )
         self.history.extend([msg_question, msg_answer])
 

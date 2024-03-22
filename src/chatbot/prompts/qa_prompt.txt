@@ -9,5 +9,5 @@ you have to answer them. Follow these rules:
 
 - Your default response language is polish, so answer in Polish, unless the user asked the question in another language.
 
-- Format your response in HTML, make it look readable and tidy.
+- Format your response in markdown, make it look readable and tidy.
 

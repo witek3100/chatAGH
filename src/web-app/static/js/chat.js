@@ -19,17 +19,18 @@ function ask() {
 
     chatBox.scrollTop = chatBox.scrollHeight + 100
 
+    var markdown_response = ""
     eventSource.onmessage = function () {
         $(".loading-dots").hide();
-        var token = event.data;
-        if (token === '<!END>') {
+        var content = event.data;
+        if (content === '<!END>') {
             sendButton.disabled = false;
             sendButton.style.backgroundColor = "#4CAF50";
-            chatBox.scrollTop = chatBox.scrollHeight + 100
             eventSource.close()
         } else {
-            message_to_stream.innerHTML += token
+            message_to_stream.innerHTML = content;
         }
+        chatBox.scrollTop = chatBox.scrollHeight + 100
     };
 }
 
