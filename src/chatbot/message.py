@@ -29,7 +29,7 @@ class Message:
 
     @property
     def content_html(self):
-        return markdown.markdown(self.message.content)
+        return self.message.content
 
     def save(self):
         messages_collection.insert_one({

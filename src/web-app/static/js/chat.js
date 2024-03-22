@@ -60,6 +60,7 @@ function updateChat(message, agent, source) {
 
     const txt = document.createElement("div")
     txt.classList.add("text")
+
     if (message === '') {
         const loading_dots = document.createElement("div")
         loading_dots.classList.add("loading-dots")

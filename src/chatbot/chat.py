@@ -68,31 +68,30 @@ class Chat:
         else:
             return input["question"]
 
-    def ask(self, question):
-        msg_question = Message(
-            chat_id=self.id,
-            content=question,
-            agent='human',
-        )
-
-        history = [msg.message.content for msg in self.history]
-        answer = self.chain.invoke({"question": question, "chat_history": history})
-
-        content, urls = self._parse_answer(answer)
-
-        msg_answer = Message(
-            chat_id=self.id,
-            content=content,
-            agent='bot',
-            source=urls
-        )
-
-        self.history.extend([msg_question, msg_answer])
-
-        return msg_answer
+    # def ask(self, question):
+    #     msg_question = Message(
+    #         chat_id=self.id,
+    #         content=question,
+    #         agent='human',
+    #     )
+    #
+    #     history = [msg.message.content for msg in self.history]
+    #     answer = self.chain.invoke({"question": question, "chat_history": history})
+    #
+    #     content, urls = self._parse_answer(answer)
+    #
+    #     msg_answer = Message(
+    #         chat_id=self.id,
+    #         content=content,
+    #         agent='bot',
+    #         source=urls
+    #     )
+    #
+    #     self.history.extend([msg_question, msg_answer])
+    #
+    #     return msg_answer
 
     def get_streaming_response(self, question):
-
         msg_question = Message(
             chat_id=self.id,
             content=question,
@@ -100,19 +99,18 @@ class Chat:
         )
 
         content = ''
-        for token in self.chain.stream({"question": question, 'chat_history': []}):
+        history = [msg.message.content for msg in self.history]
+        for token in self.chain.stream({"question": question, 'chat_history': history}):
             content += token.content
             yield f"data: {token.content}\n\n"
-
-
-        urls = [] # TODO
 
         msg_answer = Message(
             chat_id=self.id,
             content=content,
             agent='bot',
-            source=urls
+            source=[]
         )
+        self.history.extend([msg_question, msg_answer])
 
         yield 'data: <!END>\n\n'
 
