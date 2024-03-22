@@ -25,6 +25,13 @@
             background-attachment: fixed;
             background-image: url({{url_for('static', filename='assets/background.jpeg')}});
         }
+
+        @media (max-width: 900px) {
+            body {
+                background-image: url({{url_for('static', filename='assets/logo.png')}});
+                background-color: #393a39;
+            }
+        }
     </style>
 </head>
 <body>
