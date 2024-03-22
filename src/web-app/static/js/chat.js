@@ -1,29 +1,35 @@
 function ask() {
-
-    const formData = new FormData(chatForm);
     const question = inputBox.value
+    inputBox.value = ""
+
     updateChat(question, "user_icon.png", [])
 
     $(".loading-dots").show();
 
     sendButton.disabled = true;
     sendButton.style.backgroundColor = "#555"
-
     chatBox.scrollTop = chatBox.scrollHeight
 
     var url = `/get_response/${chatId}/${question}`
     var eventSource = new EventSource(url);
     $(".loading-dots").hide();
+
+    var message_to_stream = updateChat('', "bot_icon.png", [])
+
     eventSource.onmessage = function () {
-                var token = event.data;
-                console.log(token)
-                if (token === '<!END>') {
-                    console.log('closing')
-                    eventSource.close()
-                }
-                $('#chat-messages').append('<h1 style="color: white">' + token + '</h1>');
-            };
+                $(".loading-dots").hide();
+                 var token = event.data;
+                 if (token === '<!END>') {
+                     sendButton.disabled = false;
+                     sendButton.style.backgroundColor = "#4CAF50";
+                     chatBox.scrollTop = chatBox.scrollHeight + 100
+                     eventSource.close()
+                 } else {
+                     message_to_stream.innerHTML += token
+                 }
+             };
 }
+
 
 function updateChat(message, agent, source) {
     const msg_box = document.createElement("div")
@@ -67,7 +73,8 @@ function updateChat(message, agent, source) {
 
     msg_box.appendChild(msg)
     chatMessages.appendChild(msg_box)
-    inputBox.value = ""
+
+    return txt
 }
 
 async function getImageURL(agent) {

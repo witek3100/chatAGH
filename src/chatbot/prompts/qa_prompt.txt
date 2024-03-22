@@ -13,7 +13,7 @@ RULE 3
 - Your default response language is polish, so answer in Polish, unless the user asked the question in another language.
 
 RULE 4
-- Format your response in markdown, make it look readable and tidy
+- Format your response in HTML, make it look readable and tidy
 
 RULE 5
 - Choose 1-4 url links, preferably from the documents that best answer user question, and add them at the end of your answer (after "\n ## links: \n" tag), add url's in seperate lines, don't format them.

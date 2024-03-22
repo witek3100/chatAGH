@@ -1,4 +1,5 @@
 import os
+import time
 from flask import (
   Flask,
   render_template,
@@ -29,28 +30,11 @@ def create_new_chat():
 @app.route('/get_response/<chat_id>/<question>')
 def get_streaming_response(chat_id, question):
   chat = Chat(chat_id=chat_id)
-  def ask():
-    token = 'hej'
-    for i in range(20):
-      print(i)
-      if i == 15:
-        print('close')
-        yield "data: <!END>\n\n"
-      yield f"data: {token} {i}\n\n"
+  return Response(chat.get_streaming_response(question), content_type='text/event-stream')
 
-  return Response(ask(), content_type='text/event-stream')
-
-@app.route('/chat/<chat_id>', methods=['GET', 'POST'])
+@app.route('/chat/<chat_id>')
 def chat(chat_id):
   chat = Chat(chat_id=chat_id)
-
-  if request.method == 'GET':
-    pass
-
-  if request.method == 'POST':
-    question = request.form.get('message')
-    return jsonify({})
-
   return render_template('chat_tab.html', chat=chat)
 
 @app.route('/get_asset/<asset>')

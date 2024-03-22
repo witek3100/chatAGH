@@ -91,6 +91,31 @@ class Chat:
 
         return msg_answer
 
+    def get_streaming_response(self, question):
+
+        msg_question = Message(
+            chat_id=self.id,
+            content=question,
+            agent='human',
+        )
+
+        content = ''
+        for token in self.chain.stream({"question": question, 'chat_history': []}):
+            content += token.content
+            yield f"data: {token.content}\n\n"
+
+
+        urls = [] # TODO
+
+        msg_answer = Message(
+            chat_id=self.id,
+            content=content,
+            agent='bot',
+            source=urls
+        )
+
+        yield 'data: <!END>\n\n'
+
     def save(self):
         chat = {
             'llm': self.llm.model_name,
