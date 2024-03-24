@@ -1,0 +1,35 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  build-and-deploy:
+    name: run docker container on gc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker Container
+        run: |
+          docker buildx build --platform linux/amd64 -t chat-agh .
+
+      - name: Tag Docker Container
+        run: |
+          docker tag chat-agh europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh
+
+      - name: Push Docker Container
+        run: |
+          docker push europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh
+
+      - name: Terraform Apply
+        working-directory: infra
+        run: |
+          source .env && terraform apply --auto-approve

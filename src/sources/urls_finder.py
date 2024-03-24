@@ -39,15 +39,28 @@ if __name__ == "__main__":
         'https://wh.agh.edu.pl',
         'https://www.sjo.agh.edu.pl',
         'https://www.swfis.agh.edu.pl',
-        'https://sylabusy.agh.edu.pl'
+        'https://sylabusy.agh.edu.pl',
+        'https://sylabusy.agh.edu.pl/pl/'
+        'https://skn.agh.edu.pl',
+        'https://dss.agh.edu.pl',
+        'https://akademik.agh.edu.pl'
     ]
 
     def format_link(link: str):
         return link.split('#')[0]
 
+    def filter(page):
+        for year in range(16, 22):
+            if f'20{str(year)}' in page:
+                return True
+        if len(page) > 110:
+            return True
+
+        return False
+
     pages = []
     for domain in domains:
-        new_links = [format_link(page) for page in get_pages_from_sitemap(domain)]
+        new_links = [format_link(page) for page in get_pages_from_sitemap(domain) if not filter(page)]
         pages.extend(new_links)
         print(f"{len(new_links)} url's found in domain {domain}")
 
