@@ -22,7 +22,24 @@ def get_pages_from_sitemap(domain):
 if __name__ == "__main__":
     domains = [
         'https://www.agh.edu.pl',
-        'https://rekrutacja.agh.edu.pl'
+        'https://rekrutacja.agh.edu.pl',
+        'https://www.eaiib.agh.edu.pl',
+        'https://www.wggios.agh.edu.pl',
+        'https://www.metal.agh.edu.pl',
+        'https://imir.agh.edu.pl',
+        'https://odlewnictwo.agh.edu.pl',
+        'https://wilgz.agh.edu.pl',
+        'https://www.ceramika.agh.edu.pl',
+        'https://wnig.agh.edu.pl',
+        'http://www.ftj.agh.edu.pl',
+        'https://www.wms.agh.edu.pl',
+        'https://www.zarz.agh.edu.pl',
+        'https://weip.agh.edu.pl',
+        'https://iet.agh.edu.pl',
+        'https://wh.agh.edu.pl',
+        'https://www.sjo.agh.edu.pl',
+        'https://www.swfis.agh.edu.pl',
+        'https://sylabusy.agh.edu.pl'
     ]
 
     def format_link(link: str):
@@ -32,12 +49,12 @@ if __name__ == "__main__":
     for domain in domains:
         new_links = [format_link(page) for page in get_pages_from_sitemap(domain)]
         pages.extend(new_links)
+        print(f"{len(new_links)} url's found in domain {domain}")
 
     sources['html'] = list(set(pages))
-
-    print(f"{len(pages)} url's found in domains {domains}")
 
     json_string = json.dumps(sources, indent=4)
     with open("src/sources/sources.json", "w") as outfile:
         outfile.write(json_string)
+    print('done')
 

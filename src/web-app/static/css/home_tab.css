@@ -72,3 +72,17 @@ body {
     padding: 0px 50px 0px 50px;
 }
 
+@media (max-width: 900px) {
+    .home {
+        margin: -100px 5% 1000px 5%;
+    }
+
+    .link {
+        background-color: rgba(20, 200, 0, 0.2);
+    }
+
+    .about {
+        background-color: rgba(20, 200, 0, 0.2);
+    }
+}
+
