@@ -28,8 +28,3 @@ jobs:
       - name: Push Docker Container
         run: |
           docker push europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh
-
-      - name: Terraform Apply
-        working-directory: infra
-        run: |
-          source .env && terraform apply --auto-approve
