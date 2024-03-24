@@ -4,6 +4,16 @@
 <title>Chat</title>
 {% endblock %}
 
+{% block style %}
+@media (max-width: 900px) {
+    .main {
+        background-image: url({{url_for('static', filename='assets/logo.png')}});
+        background-size: 100% auto;
+        background-position: center;
+    }
+}
+{% endblock %}
+
 {% block content %}
 <div class="main">
     <div id="chat-container">

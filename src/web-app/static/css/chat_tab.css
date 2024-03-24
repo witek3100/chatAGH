@@ -1,13 +1,14 @@
 .main {
     width: 100%;
     margin-top: -150px;
+    display: flex;
+    justify-content: center;
 }
 
 #chat-container {
     background-color: rgba(0, 0, 0, 0.85);
     padding-bottom: 80px;
     width: 50%;
-    border-radius: 10px;
     overflow-y: auto;
     height: calc(100vh - 200px);
 }
@@ -64,11 +65,6 @@
     color: #fff;
     cursor: pointer;
     font-size: 15px;
-}
-
-.main {
-    display: flex;
-    justify-content: center;
 }
 
 #chat-messages {
@@ -150,5 +146,13 @@
 
     .chat-input-container {
         width: 100%;
+    }
+
+    .chat-input {
+        height: 30px;
+    }
+
+    .send-button {
+        height: 50px;
     }
 }

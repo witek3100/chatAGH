@@ -28,10 +28,13 @@
 
         @media (max-width: 900px) {
             body {
-                background-image: url({{url_for('static', filename='assets/logo.png')}});
-                background-color: #393a39;
+                background-color: #0c040c;
+                background-image: none
             }
         }
+
+        {% block style %}
+        {% endblock %}
     </style>
 </head>
 <body>
