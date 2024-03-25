@@ -72,35 +72,34 @@ As mentioned, CharAGH is currently on early stage of development, therefore bugs
 
 # Knowledge sources
 
-
-
-# Run locally instruction 
 Knowledge sources for chatbot are statutes and the contents of websites related to AGH. The current approach to gathering information is straightforward and requires improvement (expanding and filtering sources). It involves defining several domains for which a sitemap (a list of pages available in the domain) is fetched. Then, each page is loaded using langchain and added to the Pinecone database.
 List of domeins:
-        - https://www.agh.edu.pl
-        - https://rekrutacja.agh.edu.pl
-        - https://www.eaiib.agh.edu.pl
-        - https://www.wggios.agh.edu.pl
-        - https://www.metal.agh.edu.pl
-        - https://imir.agh.edu.pl
-        - https://odlewnictwo.agh.edu.pl
-        - https://wilgz.agh.edu.pl
-        - https://www.ceramika.agh.edu.pl
-        - https://wnig.agh.edu.pl
-        - http://www.ftj.agh.edu.pl
-        - https://www.wms.agh.edu.pl
-        - https://www.zarz.agh.edu.pl
-        - https://weip.agh.edu.pl
-        - https://iet.agh.edu.pl
-        - https://wh.agh.edu.pl
-        - https://www.sjo.agh.edu.pl
-        - https://www.swfis.agh.edu.pl
-        - https://sylabusy.agh.edu.pl
-        - https://sylabusy.agh.edu.pl/pl/
-        - https://skn.agh.edu.pl
-        - https://dss.agh.edu.pl
-        - https://akademik.agh.edu.pl
-        - https://www.miasteczko.agh.edu.pl
+- https://www.agh.edu.pl
+- https://rekrutacja.agh.edu.pl
+- https://www.eaiib.agh.edu.pl
+- https://www.wggios.agh.edu.pl
+- https://www.metal.agh.edu.pl
+- https://imir.agh.edu.pl
+- https://odlewnictwo.agh.edu.pl
+- https://wilgz.agh.edu.pl
+- https://www.ceramika.agh.edu.pl
+- https://wnig.agh.edu.pl
+- http://www.ftj.agh.edu.pl
+- https://www.wms.agh.edu.pl
+- https://www.zarz.agh.edu.pl
+- https://weip.agh.edu.pl
+- https://iet.agh.edu.pl
+- https://wh.agh.edu.pl
+- https://www.sjo.agh.edu.pl
+- https://www.swfis.agh.edu.pl
+- https://sylabusy.agh.edu.pl
+- https://sylabusy.agh.edu.pl/pl/
+- https://skn.agh.edu.pl
+- https://dss.agh.edu.pl
+- https://akademik.agh.edu.pl
+- https://www.miasteczko.agh.edu.pl
+
+# Run locally instruction 
 
 # Credits
 https://www.fpgmaas.com/blog/deploying-a-flask-api-to-cloudrun
