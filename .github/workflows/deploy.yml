@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    name: run docker container on gc
+§    name: Build and deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -17,19 +17,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Build Docker Container
+      - name: Build Docker image
         run: |
           docker buildx build --platform linux/amd64 -t chat-agh .
 
-      - name: Tag Docker Container
+      - name: Tag
         run: |
           docker tag chat-agh europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh
 
-      - name: Push Docker Container
+      - name: Push
         run: |
           docker push europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh
 
-      - name: Terraform Apply
-        working-directory: infra
-        run: |
-          source .env && terraform apply --auto-approve
