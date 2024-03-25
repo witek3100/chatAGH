@@ -1,6 +1,4 @@
 # About
-Aim of this project is to utilize power of large language models in conjunction with  
-to create conversational ai chatbot for academic community at AGH univeristy, allowing quick search for reliable information through user friendly web application.
 
 CharAGH is conversational ai chatbot based on openAI's GPT4 with connection to knowledge about AGH University (statutes, websites etc.) using [retrieval-augmented generation](https://research.ibm.com/blog/retrieval-augmented-generation-RAG). Aim of the project is to create useful tool for academic society at AGH, allowing for quick retrieval of reliable information. Currently project is on the very early stage of development, bugs expected. 
 
