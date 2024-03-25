@@ -19,7 +19,7 @@
 
     <style>
         body {
-            overflow: hidden;
+            /*overflow: hidden;*/
             background-size: 100% auto;
             background-position: center;
             background-attachment: fixed;
@@ -29,7 +29,8 @@
         @media (max-width: 900px) {
             body {
                 background-color: #0c040c;
-                background-image: none
+                background-repeat: no-repeat;
+                background-image: url({{url_for('static', filename='assets/logo2.jpeg')}});
             }
         }
 

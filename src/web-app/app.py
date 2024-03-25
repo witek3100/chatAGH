@@ -29,8 +29,7 @@ def create_new_chat():
 
 @app.route('/get_response/<chat_id>/<question>')
 def get_streaming_response(chat_id, question):
-  chat = Chat(chat_id=chat_id)
-  return Response(chat.get_streaming_response(question), content_type='text/event-stream')
+  return Response(Chat.get_streaming_response(question, chat_id), content_type='text/event-stream')
 
 @app.route('/chat/<chat_id>')
 def chat(chat_id):
@@ -43,7 +42,15 @@ def get_icon_url(asset):
 
 @app.route('/login')
 def login():
-  pass
+  return render_template('not_implemented.html')
+
+@app.route('/signup')
+def signup():
+  return render_template('not_implemented.html')
+
+@app.route('/sources-list')
+def sources_list():
+  return render_template('sources_list.html')
 
 if __name__ == '__main__':
   app.run(

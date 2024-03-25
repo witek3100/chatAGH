@@ -4,6 +4,8 @@ function ask() {
         return 0
     }
 
+    const error_mesasge = "Podczas generowania odpowiedzi wystąpił błąd, spróbuj ponownie ... "
+
     sendButton.disabled = true;
     sendButton.style.backgroundColor = "#555"
 
@@ -23,7 +25,14 @@ function ask() {
     eventSource.onmessage = function () {
         $(".loading-dots").hide();
         var content = event.data;
-        if (content === '<!END>') {
+        if (content === '<!ERROR>') {
+            message_to_stream.innerHTML = "<b style='color: red'>" + error_mesasge + "</b>"
+            sendButton.disabled = false;
+            sendButton.style.backgroundColor = "#4CAF50";
+            eventSource.close()
+            return
+        }
+        else if (content === '<!END>') {
             sendButton.disabled = false;
             sendButton.style.backgroundColor = "#4CAF50";
             eventSource.close()

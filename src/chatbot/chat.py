@@ -92,28 +92,37 @@ class Chat:
     #
     #     return msg_answer
 
-    def get_streaming_response(self, question):
-        msg_question = Message(
-            chat_id=self.id,
-            content=question,
-            agent='human',
-        )
+    @staticmethod
+    def get_streaming_response(question, chat_id):
+        try:
+            raise Exception('test errror')
 
-        content = ''
-        history = [msg.message.content for msg in self.history]
-        for token in self.chain.stream({"question": question, 'chat_history': history}):
-            content += token.content
-            content_html = markdown.markdown(content).replace('\n', '')
-            yield f"data: {content_html}\n\n"
+            chat = Chat(chat_id=chat_id)
+            msg_question = Message(
+                chat_id=chat.id,
+                content=question,
+                agent='human',
+            )
 
-        msg_answer = Message(
-            chat_id=self.id,
-            content=content,
-            agent='bot',
-        )
-        self.history.extend([msg_question, msg_answer])
+            content = ''
+            history = [msg.message.content for msg in chat.history]
+            for token in chat.chain.stream({"question": question, 'chat_history': history}):
+                content += token.content
+                content_html = markdown.markdown(content).replace('\n', '')
+                yield f"data: {content_html}\n\n"
 
-        yield 'data: <!END>\n\n'
+            msg_answer = Message(
+                chat_id=chat.id,
+                content=content,
+                agent='bot',
+            )
+            chat.history.extend([msg_question, msg_answer])
+
+            yield 'data: <!END>\n\n'
+
+        except Exception as e:
+            print(f'Error while generating response: {e}')
+            yield 'data: <!ERROR>\n\n'
 
     def save(self):
         chat = {

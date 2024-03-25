@@ -51,7 +51,7 @@ body {
 }
 
 .home {
-    margin: -100px 20% 1000px 20%;
+    margin: -100px 20% 100px 20%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -78,11 +78,11 @@ body {
     }
 
     .link {
-        background-color: rgba(20, 200, 0, 0.2);
+        background-color: rgba(35, 35, 35, 0.97);
     }
 
     .about {
-        background-color: rgba(20, 200, 0, 0.2);
+        background-color: rgba(35, 35, 35, 0.97);
     }
 }
 
