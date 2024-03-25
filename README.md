@@ -65,7 +65,7 @@ CharAGH is conversational ai chatbot based on openAI's GPT4 with connection to k
 </pre>
 
 # Project status and next steps
-HharAGH is currently on early stage of development, therefore bugs are expected and amount of functionalities is limited, now only to creating new, one time chats. Next steps involves:
+ChatAGH is currently on early stage of development, therefore bugs are expected and amount of functionalities is limited, now only to creating new, one time chats. Next steps involves:
  - Expanding web app (among others by adding accouts funcionality, to allow users store and return to their chats),
  - Imporoving chatting by broading knowledge sources and enhancing chatbot itself (prompts, model params etc.).
  - Fixing bugs and lot of smaller changes.
