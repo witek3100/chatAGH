@@ -7,8 +7,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-from src.sources.vector_db import retriever
-from src.utils import chats_collection, messages_collection
+from src.utils import chats_collection, messages_collection, retriever
 from src.chatbot.message import Message
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -23,7 +22,7 @@ class Chat:
             self.id = chat_id
             self.load_history()
 
-        self.llm = ChatOpenAI(model_name="gpt-4-0125-preview", temperature=0.6)
+        self.llm = ChatOpenAI(model_name="gpt-4-0125-preview", temperature=0.2)
 
         prompt_path = os.path.join(project_root, 'chatbot/prompts/contextualize_prompt.txt')
         with open(prompt_path) as file:
@@ -95,8 +94,6 @@ class Chat:
     @staticmethod
     def get_streaming_response(question, chat_id):
         try:
-            # raise Exception('test errror')
-
             chat = Chat(chat_id=chat_id)
             msg_question = Message(
                 chat_id=chat.id,

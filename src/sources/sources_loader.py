@@ -30,7 +30,7 @@ def load_sources_to_index():
 
     # With threading
     threads = []
-    for source_domain in domains['domains']:
+    for source_domain in domains['agh_domains']:
         thread = threading.Thread(target=load_domain_async, args=(source_domain,))
         thread.start()
         threads.append(thread)

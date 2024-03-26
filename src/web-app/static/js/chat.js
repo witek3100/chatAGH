@@ -1,5 +1,4 @@
 function ask() {
-
     if (sendButton.disabled === true) {
         return 0
     }
@@ -21,30 +20,35 @@ function ask() {
 
     chatBox.scrollTop = chatBox.scrollHeight + 100
 
-    var markdown_response = ""
     eventSource.onmessage = function () {
         $(".loading-dots").hide();
         var content = event.data;
         if (content === '<!ERROR>') {
             message_to_stream.innerHTML = "<b style='color: red'>" + error_mesasge + "</b>"
-
-            sendButton.disabled = false;
-            sendButton.style.backgroundColor = "#4CAF50";
             eventSource.close()
+            setTimeout(enableButton, 100)
         }
         else if (content === '<!END>') {
-            sendButton.disabled = false;
-            sendButton.style.backgroundColor = "#4CAF50";
             eventSource.close()
+            enableButton()
         } else {
             message_to_stream.innerHTML = content;
         }
         chatBox.scrollTop = chatBox.scrollHeight + 100
     };
+
+}
+
+function enableButton() {
+    sendButton.disabled = false;
+    sendButton.style.backgroundColor = "#4CAF50";
 }
 
 
 function updateChat(message, agent, source) {
+
+    console.log('updateing')
+
     const msg_box = document.createElement("div")
     msg_box.classList.add("message-box")
 

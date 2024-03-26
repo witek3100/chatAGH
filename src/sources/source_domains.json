@@ -1,18 +1,12 @@
 {
-      "domains": [
+      "agh_domains": [
         "https://www.agh.edu.pl",
-        "https://rekrutacja.agh.edu.pl",
-        "https://skn.agh.edu.pl",
-        "https://skn.agh.edu.pl/kolo",
         "https://sylabusy.agh.edu.pl",
         "https://www.sjo.agh.edu.pl",
-        "https://www.swfis.agh.edu.pl",
-        "https://dss.agh.edu.pl",
-        "https://akademik.agh.edu.pl",
         "https://www.miasteczko.agh.edu.pl",
         "https://www.eaiib.agh.edu.pl"
       ],
-      "faculties": [
+      "agh_faculties": [
         "https://www.eaiib.agh.edu.pl",
         "https://www.wggios.agh.edu.pl",
         "https://www.metal.agh.edu.pl",
@@ -26,6 +20,22 @@
         "https://www.zarz.agh.edu.pl",
         "https://weip.agh.edu.pl",
         "https://iet.agh.edu.pl",
-        "https://wh.agh.edu.pl"
+        "https://wh.agh.edu.pl",
+
+
+
+                    "https://skn.agh.edu.pl",
+                    "https://dss.agh.edu.pl",
+                    "https://rekrutacja.agh.edu.pl",
+            "https://www.swfis.agh.edu.pl",
+            "https://akademik.agh.edu.pl"
+
+
+
+
+
+
+
+
       ]
 }

@@ -29,6 +29,7 @@ def create_new_chat():
 
 @app.route('/get_response/<chat_id>/<question>')
 def get_streaming_response(chat_id, question):
+  print('123')
   return Response(Chat.get_streaming_response(question, chat_id), content_type='text/event-stream')
 
 @app.route('/chat/<chat_id>')
