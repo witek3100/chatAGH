@@ -15,6 +15,10 @@ sources_path = os.path.join(project_root, 'src', 'sources', 'sources.json')
 with open(sources_path) as sources_file:
     sources = json.load(sources_file)
 
+source_domains_path = os.path.join(project_root, 'src', 'sources', 'source_domains.json')
+with open(source_domains_path) as domains:
+    domains = json.load(domains)
+
 mongo_uri = config["mongo"]["uri"]
 mongo_db = config["mongo"]["db"]
 mongo_client = pymongo.MongoClient(mongo_uri)[mongo_db]

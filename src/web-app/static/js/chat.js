@@ -27,10 +27,10 @@ function ask() {
         var content = event.data;
         if (content === '<!ERROR>') {
             message_to_stream.innerHTML = "<b style='color: red'>" + error_mesasge + "</b>"
+
             sendButton.disabled = false;
             sendButton.style.backgroundColor = "#4CAF50";
             eventSource.close()
-            return
         }
         else if (content === '<!END>') {
             sendButton.disabled = false;

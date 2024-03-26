@@ -23,7 +23,7 @@ class Chat:
             self.id = chat_id
             self.load_history()
 
-        self.llm = ChatOpenAI(model_name="gpt-4-0125-preview", temperature=0.7)
+        self.llm = ChatOpenAI(model_name="gpt-4-0125-preview", temperature=0.6)
 
         prompt_path = os.path.join(project_root, 'chatbot/prompts/contextualize_prompt.txt')
         with open(prompt_path) as file:
@@ -95,7 +95,7 @@ class Chat:
     @staticmethod
     def get_streaming_response(question, chat_id):
         try:
-            raise Exception('test errror')
+            # raise Exception('test errror')
 
             chat = Chat(chat_id=chat_id)
             msg_question = Message(
