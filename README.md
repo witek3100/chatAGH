@@ -39,11 +39,10 @@ CharAGH is conversational ai chatbot based on openAI's GPT4 with connection to k
    |     |      ├── config.json
    |     |      └── requirements.txt
    |     |
-   |     ├── sources             ## Knowledge sources generator (web scrappers, sitemap parsers, langchain document loaders, and pinecone index initialization)
+   |     ├── sources             ## Knowledge sources generator (web scraper, langchain documents loader, and pinecone index initialization)
    |     |      ├── sources.json
    |     |      ├── sources_loader.py
-   |     |      ├── urls_finder.py
-   |     |      └── vector_db.py
+   |     |      └── domain_scraper.py
    |     |
    |     ├── tests      ## tests - TODO
    |     |
@@ -71,25 +70,12 @@ ChatAGH is currently on early stage of development, therefore bugs are expected 
  - Fixing bugs and lot of smaller changes.
 
 # Knowledge sources
+Current approach to generating knowledge sources is quite straightforward and requires improvement (expanding and filtering sources). In short, it involves scraping web pages from several domains related to agh and then loading them to pinecone using langchain. domain list:
 
-Knowledge sources for chatbot are statutes and the contents of websites related to AGH. The current approach to gathering information is straightforward and requires improvement (expanding and filtering sources). It involves defining several domains for which a sitemap (a list of pages available in the domain) is fetched. Then, each page is loaded using langchain and added to the Pinecone database.
 List of domeins:
 - https://www.agh.edu.pl
 - https://rekrutacja.agh.edu.pl
 - https://www.eaiib.agh.edu.pl
-- https://www.wggios.agh.edu.pl
-- https://www.metal.agh.edu.pl
-- https://imir.agh.edu.pl
-- https://odlewnictwo.agh.edu.pl
-- https://wilgz.agh.edu.pl
-- https://www.ceramika.agh.edu.pl
-- https://wnig.agh.edu.pl
-- http://www.ftj.agh.edu.pl
-- https://www.wms.agh.edu.pl
-- https://www.zarz.agh.edu.pl
-- https://weip.agh.edu.pl
-- https://iet.agh.edu.pl
-- https://wh.agh.edu.pl
 - https://www.sjo.agh.edu.pl
 - https://www.swfis.agh.edu.pl
 - https://sylabusy.agh.edu.pl
