@@ -23,7 +23,7 @@ jobs:
 
       - name: Tag
         run: |
-          docker tag chat-agh europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh
+          docker tag chat-agh europe-west4-docker.pkg.dev/chat-agh-417420/docker-repository/chat-agh:latest
 
       - name: Push
         run: |
