@@ -4,7 +4,7 @@ import markdown
 
 from langchain_core.messages import AIMessage, HumanMessage, AnyMessage
 
-from src.utils import messages_collection
+from src.utils import messages_collection, logger
 
 
 class Message:
@@ -32,6 +32,7 @@ class Message:
         return markdown.markdown(self.message.content)
 
     def save(self):
+        logger.log(f'Adding new {self.agent} message to db: {self.message.content}')
         messages_collection.insert_one({
             'chat_id': self.chat_id,
             'content': self.message.content,

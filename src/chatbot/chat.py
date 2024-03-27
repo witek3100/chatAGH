@@ -7,7 +7,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-from src.utils import chats_collection, messages_collection, retriever
+from src.utils import chats_collection, messages_collection, retriever, logger
 from src.chatbot.message import Message
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -118,7 +118,7 @@ class Chat:
             yield 'data: <!END>\n\n'
 
         except Exception as e:
-            print(f'Error while generating response: {e}')
+            logger.log(f'Error while generating response: {e}')
             yield 'data: <!ERROR>\n\n'
 
     def save(self):
@@ -151,8 +151,3 @@ class Chat:
         except IndexError:
             urls = []
         return answer, urls
-
-
-if __name__ == "__main__":
-    chat = Chat()
-    print(chat.ask("Zmiana kierunku studiów"))

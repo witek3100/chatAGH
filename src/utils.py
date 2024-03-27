@@ -1,5 +1,6 @@
 import os
 import json
+import sys
 import logging
 import traceback
 import pymongo
@@ -20,6 +21,7 @@ with open(source_domains_path) as domains:
 
 os.environ['PINECONE_API_KEY'] = config['pinecone']['api_key']
 os.environ['OPENAI_API_KEY'] = config['openai']['api_key']
+
 
 # MONGO CLIENT
 mongo_uri = config["mongo"]["uri"]
@@ -47,18 +49,26 @@ class Logger:
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
+        stdout_handler = logging.StreamHandler(sys.stdout)
+        stdout_handler.setLevel(logging.INFO)
+
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        stdout_handler.setFormatter(formatter)
+
+        self.logger.addHandler(stdout_handler)
+
     def log(self, message):
-        _, _, tb = traceback.stack_trace()
+        tb = traceback.extract_stack()
 
         filename, line_no, function_name, _ = tb[0]
 
         log_data = {
             'message': message,
             'timestamp': datetime.now(),
-            'source': f"{filename}:{line_no} - {function_name}",
+            'traceback': str(tb),
         }
 
-        self.logger.info(f"{message} (Source: {log_data['source']})")
+        self.logger.info(f"{message} (Source: {log_data['traceback']})")
         logs_collection.insert_one(log_data)
 
 logger = Logger()

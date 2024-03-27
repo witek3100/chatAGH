@@ -3,6 +3,8 @@ import aiohttp
 from urllib.parse import urlparse, urljoin
 from bs4 import BeautifulSoup
 
+from src.utils import logger
+
 class DomainScrapper:
     def __init__(self, url):
         self.url = url
@@ -20,15 +22,24 @@ class DomainScrapper:
         return links
 
     def _get_domain(self, url):
+        """
+        returns domain from url
+        """
         parsed_uri = urlparse(url)
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         return domain
 
-    def _filter(self, page):
-        for year in range(16, 22):
-            if f'20{str(year)}' in page:
+    def _filter(self, url):
+        """
+        Function filter to outdated and unwanted links
+        :param page: link url
+        :return:
+        """
+
+        for year in range(16, 21):
+            if f'20{str(year)}' in url:
                 return False
-        if len(page) > 110:
+        if len(url) > 110:
             return False
         return True
 
@@ -42,20 +53,20 @@ class DomainScrapper:
                 else:
                     return set()
         except aiohttp.ClientConnectorError as e:
-            print(f"Error connecting to {url}: {e}")
+            logger.log(f"Error connecting to {url}: {e}")
             return set()
         except aiohttp.ServerDisconnectedError as e:
-            print(f"Server disconnected while accessing {url}: {e}")
+            logger.log(f"Server disconnected while accessing {url}: {e}")
             return set()
         except Exception as e:
-            print(f"Error occured while loading {url}: {e}")
+            logger.log(f"Error occured while loading {url}: {e}")
             return set()
 
     async def scrap_async(self):
         scraped_urls = []
 
         try:
-            print(f'scraping {self.domain} ...')
+            logger.log(f'scraping {self.domain} ...')
 
             queue = [self.url]
             visited = set()
@@ -73,19 +84,13 @@ class DomainScrapper:
                                 queue.append(link)
                                 visited.add(link)
 
-                    queue = queue[1:]  # Remove the first element
+                    queue = queue[1:]
 
             urls = [url for url in visited if self._filter(url)]
-            print(f'{len(urls)} urls found in domain: {self.domain}')
+            logger.log(f'{len(urls)} urls found in domain: {self.domain}')
             scraped_urls.extend(urls)
         except Exception as e:
-            print(f'Error scraping domain {self.domain}: {e}')
+            logger.log(f'Error scraping domain {self.domain}: {e}')
 
         return scraped_urls
 
-if __name__ == '__main__':
-    async def main():
-        urls = await DomainScrapper('https://www.agh.edu.pl').scrap_async()
-        print(urls)
-
-    asyncio.run(main())
