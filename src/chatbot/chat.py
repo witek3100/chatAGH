@@ -91,6 +91,7 @@ class Chat:
     #
     #     return msg_answer
 
+
     @staticmethod
     def get_streaming_response(question, chat_id):
         try:
