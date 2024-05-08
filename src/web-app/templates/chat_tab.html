@@ -45,14 +45,21 @@
     </div>
 
     <div class="chat-input-container">
-        <form id="chat-form">
-            <input id="question-input" type="text" name="message" class="chat-input" placeholder="O co chcesz zapytać?">
-            <div class="button-box">
-                <button id="send-button" class="send-button">Zapytaj</button>
-            </div>
+        <form id="chat-form" onsubmit="return checkInput()">
+            <textarea id="question-input" name="message" class="chat-input" placeholder="O co chcesz zapytać?"></textarea>
+            <button id="send-button" type="submit" class="send-button">Zapytaj</button>
         </form>
     </div>
+
 </div>
+
+<div class="overlay" id="overlay">
+    <div class="modal">
+        <p>Proszę wpisać pytanie przed wysłaniem!</p>
+        <button class="popup-button" onclick="hideModal()">Rozumiem</button>
+    </div>
+</div>
+
 
 <script>
     const inputBox = document.getElementById("question-input");
@@ -61,13 +68,41 @@
     const chatMessages = document.getElementById("chat-messages")
     const chatId = '{{ chat.id }}'
 
-    chatBox.scrollTop = chatBox.scrollHeight
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     inputBox.addEventListener("keyup", (event) => {
-        if (event.key === "Enter" && event.key !== "Shift") {
-            ask()
+        if (event.key === "Enter" && event.key !== "Shift" && checkInput()) {
+            ask();
         }
     });
-    sendButton.addEventListener("click", ask);
-</script>
+
+    sendButton.addEventListener("click", (event) => {
+        if (checkInput()) {
+            ask();
+        }
+    });
+
+    function checkInput() {
+        var input = document.getElementById('question-input').value.trim();
+        if (input === "") {
+            showModal();
+            return false;
+        }
+        return true;
+    }
+
+    function showModal() {
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideModal() {
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    document.getElementById('overlay').addEventListener('click', function() {
+        hideModal();
+    });
+
+    </script>
+    
 {% endblock %}

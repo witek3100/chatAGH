@@ -10,7 +10,10 @@ from flask import (
   Response
 )
 
-from src.chatbot.chat import Chat
+if os.environ.get("FRONTEND_ONLY", False):
+  from src.chatbot.dummyChat import DummyChat as Chat
+else:
+  from src.chatbot.chat import Chat
 
 app = Flask(__name__, static_folder='static/')
 

@@ -1,2 +1,6 @@
 src/configs/config.json
 src/infra/infrastructure_service_account.json
+
+# python specific files and directories
+.venv
+__pycache__
